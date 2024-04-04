@@ -26,7 +26,6 @@ public class Mascota {
     @ManyToOne
     Cliente dueno;
 
-    @JsonIgnore
     @ManyToOne
     EstadoMas estado;
 

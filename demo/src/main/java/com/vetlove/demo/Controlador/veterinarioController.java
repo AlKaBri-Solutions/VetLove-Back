@@ -16,7 +16,7 @@ import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 
 @RestController
 @RequestMapping("/veterinario")
-@CrossOrigin(origins = "localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class veterinarioController {
 
     @Autowired

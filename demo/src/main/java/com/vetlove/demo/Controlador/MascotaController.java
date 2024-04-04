@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Mascota;
+import com.vetlove.demo.Interfaz.IEstadoMasServicio;
 import com.vetlove.demo.Interfaz.IMascotaServicio;
 
 
@@ -24,10 +25,13 @@ import com.vetlove.demo.Interfaz.IMascotaServicio;
 
 @RestController
 @RequestMapping("/mascota")
-@CrossOrigin(origins = "*") /////////////////////////
+@CrossOrigin(origins = "http://localhost:4200") /////////////////////////
 public class MascotaController {
     @Autowired
     private IMascotaServicio mascotaServicio;
+
+    @Autowired
+    private IEstadoMasServicio estadoMasServicio;
 
     //Métodos GET
     //http://localhost:8090/mascota/all
@@ -45,6 +49,7 @@ public class MascotaController {
     //Métodos POST
     @PostMapping("/add")
     public void addMascota(@RequestBody Mascota mascota) {
+        // System.out.println("MASCOTA RECIBIDA: "+ mascota);
         mascotaServicio.save(mascota);
     }
     

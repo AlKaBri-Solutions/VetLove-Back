@@ -186,8 +186,11 @@ public class DatabaseInit implements ApplicationRunner {
         repoMascota.save(new Mascota("Shadow", "Dachshund", 4, 2500, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
         
 
-        repoVeterinario.save(new Veterinario("12345678", "Sebastián Angarita", "password",
-                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("12345678", "Sebastián Angarita", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("87654321", "Juan Zuluaga", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("11223344", "Carlos Parra", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("55667788", "Jose Hurtado", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("18273645", "Andrea Rueda", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
 
         repoEstadoMas.save(new EstadoMas("Ingresado"));
         repoEstadoMas.save(new EstadoMas("De baja"));
@@ -228,10 +231,42 @@ public class DatabaseInit implements ApplicationRunner {
             }
         }
 
-        for (Long i = 1L; i <= 50L; i++) {
+        for (Long i = 1L; i <= 10L; i++) {
             Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
             if (asociarCliente != null) {
                 asociarCliente.setVeterinario(repoVeterinario.findById(1L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                repoCliente.save(asociarCliente);
+            }
+        }
+
+        for (Long i = 11L; i <= 20L; i++) {
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            if (asociarCliente != null) {
+                asociarCliente.setVeterinario(repoVeterinario.findById(2L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                repoCliente.save(asociarCliente);
+            }
+        }
+
+        for (Long i = 21L; i <= 30L; i++) {
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            if (asociarCliente != null) {
+                asociarCliente.setVeterinario(repoVeterinario.findById(3L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                repoCliente.save(asociarCliente);
+            }
+        }
+
+        for (Long i = 31L; i <= 40L; i++) {
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            if (asociarCliente != null) {
+                asociarCliente.setVeterinario(repoVeterinario.findById(4L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                repoCliente.save(asociarCliente);
+            }
+        }
+
+        for (Long i = 41L; i <= 50L; i++) {
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            if (asociarCliente != null) {
+                asociarCliente.setVeterinario(repoVeterinario.findById(5L).orElse(null)); // Manejar el caso de que el veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
