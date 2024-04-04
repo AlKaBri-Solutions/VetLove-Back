@@ -11,5 +11,4 @@ import com.vetlove.demo.Entidad.Mascota;
 @Repository
 public interface MascotaRepositorio extends JpaRepository<Mascota, Long> {
     List<Mascota> findByDueno(Cliente dueno);
-    
 }

@@ -15,7 +15,6 @@ public class MascotaServicio implements IMascotaServicio{
     @Autowired
     MascotaRepositorio repoMascota;
 
-    @SuppressWarnings("null")
     @Override
     public Mascota SearchById(Long id){
         return repoMascota.findById(id).get();
@@ -26,19 +25,16 @@ public class MascotaServicio implements IMascotaServicio{
         return repoMascota.findAll();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void deleteMascota(Long id){
         repoMascota.deleteById(id);
     }
-
-    @SuppressWarnings("null")
+    
     @Override
     public void save(Mascota mascota){
         repoMascota.save(mascota);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void updateMascota(Mascota mascota) {
         repoMascota.save(mascota);
