@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vetlove.demo.Entidad.Mascota;
+import com.vetlove.demo.Entidad.Veterinario;
 import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IEstadoMasServicio;
 import com.vetlove.demo.Interfaz.IMascotaServicio;
@@ -31,12 +32,26 @@ public class veterinarioController {
     @Autowired
     IEstadoMasServicio estadoMasServicio;
     
-    @GetMapping("/mascotas")
-    public List<Mascota> mostrarTodasMascotas() {
-        return mascotaServicio.SearchAll();
+    //Métodos GET
+    //localhost:8090/veterinario/all
+    @GetMapping("/all")
+    public List<Veterinario> getAllVeterinarios(){
+        return veterinarioServicio.SearchAll();
+    }
+
+    //localhost:8090/veterinario/find?id=1
+    @GetMapping("/find")
+    public Veterinario getVeterinarioById(@RequestParam Long id){
+        return veterinarioServicio.SearchById(id);
     }
     
-    
+    //Métodos POST
+
+
+    //Métodos PUT
+
+
+    //Métodos DELETE
 
 
 }

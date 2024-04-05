@@ -1,6 +1,6 @@
 package com.vetlove.demo.Servicio;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class VeterinarioServicio implements IVeterinarioServicio{
     }
 
     @Override
-    public Collection<Veterinario> SearchAll(){
+    public List<Veterinario> SearchAll(){
         return repoVeterinario.findAll();
     }
 
