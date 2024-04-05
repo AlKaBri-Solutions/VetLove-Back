@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Mascota;
+import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IEstadoMasServicio;
 import com.vetlove.demo.Interfaz.IMascotaServicio;
+import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 
 
 
@@ -31,7 +33,13 @@ public class MascotaController {
     private IMascotaServicio mascotaServicio;
 
     @Autowired
+    private IClienteServicio clienteServicio;
+
+    @Autowired
     private IEstadoMasServicio estadoMasServicio;
+
+    @Autowired
+    private IVeterinarioServicio veterinarioServicio;
 
     //Métodos GET
     //http://localhost:8090/mascota/all
@@ -45,6 +53,17 @@ public class MascotaController {
     public Mascota getMascotaById(@RequestParam Long id) {
         return mascotaServicio.SearchById(id);
     }
+
+    @GetMapping("/client")
+    public List<Mascota> getMascotasByClienteId(@RequestParam Long id) {
+        return mascotaServicio.SearchAllByDueno(clienteServicio.SearchById(id));
+    }
+
+    @GetMapping("/veterinario")
+    public List<Mascota> getMascotaByVeterinarioId(@RequestParam Long id) {
+        return mascotaServicio.SearchAllByVeterinarioId(id);
+    }
+    
 
     //Métodos POST
     @PostMapping("/add")
