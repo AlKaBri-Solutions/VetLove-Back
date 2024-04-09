@@ -70,7 +70,6 @@ public class MascotaController {
     //Métodos POST
     @PostMapping("/add")
     public void addMascota(@RequestBody AddMascotaRequest params) {
-        System.out.println("La cedula es: "+ params.getCedula());
         Cliente dueno = clienteServicio.SearchByCedula(params.getCedula());
         Mascota mascota = params.getMascota();
         mascota.setDueno(dueno);

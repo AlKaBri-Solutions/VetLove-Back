@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Cliente;
 import com.vetlove.demo.Entidad.Veterinario;
+import com.vetlove.demo.EntidadRequest.AddClienteRequest;
 import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 
@@ -49,16 +50,29 @@ public class ClienteController {
     
     //Métodos POST
     @PostMapping("/add")
-    public void addCliente(@RequestBody Cliente cliente) {
-        clienteServicio.save(cliente);
+    public void addCliente(@RequestBody AddClienteRequest params) {
+        System.out.println("\n\n\n\n\n");
+        System.out.println(params.getCliente());
+        System.out.println(params.getCliente().getNombre());
+        System.out.println(params.getCliente().getCorreo());
+        System.out.println(params.getCliente().getCelular());
+        System.out.println(params.getCliente().getCedula());
+        System.out.println("\n");
+        System.out.println(params.getId());
+        System.out.println("\n\n\n\n\n");
+        
+        Cliente client = params.getCliente();
+        Veterinario veterinario = veterinarioServicio.SearchById(Long.parseLong(params.getId()));
+        client.setVeterinario(veterinario);
+        clienteServicio.save(client);
     }
     
     //Métodos PUT
     @PutMapping("/update")
-    public void updataeCliente(@RequestBody Cliente cliente) {
-        Veterinario veterinario = clienteServicio.SearchById(cliente.getId()).getVeterinario();
-        cliente.setVeterinario(veterinario);
-        clienteServicio.save(cliente);
+    public void updataeCliente(@RequestBody AddClienteRequest params) {
+        Veterinario veterinario = clienteServicio.SearchById(Long.parseLong(params.getId())).getVeterinario();
+        params.getCliente().setVeterinario(veterinario);
+        clienteServicio.save(params.getCliente());
     }
     
 

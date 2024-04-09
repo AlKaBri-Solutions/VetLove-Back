@@ -16,7 +16,6 @@ public class ClienteServicio implements IClienteServicio{
     @Autowired
     ClienteRepositorio repoCliente;
 
-    @SuppressWarnings("null")
     @Override
     public Cliente SearchById(Long id) {
         return repoCliente.findById(id).get();
@@ -37,19 +36,17 @@ public class ClienteServicio implements IClienteServicio{
         return (long) -1;
     }
 
-    @SuppressWarnings("null")
     @Override
     public void save(Cliente cliente) {
         repoCliente.save(cliente);
     }
     
-    @SuppressWarnings("null")
+
     @Override
     public void deleteCliente(Long id) {
         repoCliente.deleteById(id);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void updateCliente(Cliente cliente) {
         repoCliente.save(cliente);

@@ -21,7 +21,6 @@ public class Cliente {
     String correo;
     String celular;
 
-    @JsonIgnore
     @ManyToOne
     Veterinario veterinario;
     

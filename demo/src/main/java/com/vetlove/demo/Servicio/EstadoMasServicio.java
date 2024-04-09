@@ -14,7 +14,6 @@ public class EstadoMasServicio implements IEstadoMasServicio{
     @Autowired
     EstadoMasRepositorio repoEstadoMas;
 
-    @SuppressWarnings("null")
     @Override
     public EstadoMas SearchById(Long id) {
         return repoEstadoMas.findById(id).get();
