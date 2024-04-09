@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vetlove.demo.Entidad.Cliente;
 import com.vetlove.demo.Entidad.Mascota;
+import com.vetlove.demo.EntidadRequest.AddMascotaRequest;
 import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IEstadoMasServicio;
 import com.vetlove.demo.Interfaz.IMascotaServicio;
@@ -67,8 +69,11 @@ public class MascotaController {
 
     //Métodos POST
     @PostMapping("/add")
-    public void addMascota(@RequestBody Mascota mascota) {
-        // System.out.println("MASCOTA RECIBIDA: "+ mascota);
+    public void addMascota(@RequestBody AddMascotaRequest params) {
+        System.out.println("La cedula es: "+ params.getCedula());
+        Cliente dueno = clienteServicio.SearchByCedula(params.getCedula());
+        Mascota mascota = params.getMascota();
+        mascota.setDueno(dueno);
         mascotaServicio.save(mascota);
     }
     
@@ -76,6 +81,8 @@ public class MascotaController {
     //Métodos PUT
     @PutMapping("/update")
     public void updataeMascota(@RequestBody Mascota mascota) {
+        Cliente dueno = mascotaServicio.SearchById(mascota.getId()).getDueno();
+        mascota.setDueno(dueno);
         mascotaServicio.save(mascota);
     }
     

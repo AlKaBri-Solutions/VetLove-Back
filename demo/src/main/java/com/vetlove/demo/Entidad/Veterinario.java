@@ -21,7 +21,6 @@ public class Veterinario {
     String contrasenia;
     String fotoUrl;
 
-    @JsonIgnore
     @ManyToOne
     Especialidad especialidad;
 
