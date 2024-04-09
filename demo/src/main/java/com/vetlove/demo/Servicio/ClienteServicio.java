@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vetlove.demo.Entidad.Cliente;
+import com.vetlove.demo.Entidad.Veterinario;
 import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
 
@@ -57,5 +58,10 @@ public class ClienteServicio implements IClienteServicio{
     @Override
     public Cliente SearchByCedula(String cedula) {
         return repoCliente.findByCedula(cedula);
+    }
+
+    @Override
+    public List<Cliente> SearchAllByVeterinario(Veterinario veterinario) {
+        return repoCliente.findByVeterinario(veterinario);
     }
 }

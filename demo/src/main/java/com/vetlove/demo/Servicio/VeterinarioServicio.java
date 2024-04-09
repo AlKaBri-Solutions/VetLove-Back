@@ -14,7 +14,6 @@ public class VeterinarioServicio implements IVeterinarioServicio{
     @Autowired
     VeterinarioRepositorio repoVeterinario;
 
-    @SuppressWarnings("null")
     @Override
     public Veterinario SearchById(Long id){
         return repoVeterinario.findById(id).get();
@@ -25,26 +24,23 @@ public class VeterinarioServicio implements IVeterinarioServicio{
         return repoVeterinario.findAll();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void deleteVeterinario(Long id){
         repoVeterinario.deleteById(id);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void save(Veterinario veterinario){
         repoVeterinario.save(veterinario);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void updateVeterinario(Veterinario veterinario) {
         repoVeterinario.save(veterinario);
     }
 
     @Override
-    public Long validateLogin(String cedula, String password) {
+    public Long validateLogin(String cedula, String password){
         for (Veterinario veterinario : repoVeterinario.findAll()) {
             if (cedula.equals(veterinario.getCedula())) {
                 if (password.equals(veterinario.getContrasenia()))

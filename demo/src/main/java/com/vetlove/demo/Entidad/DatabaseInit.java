@@ -1,13 +1,25 @@
 package com.vetlove.demo.Entidad;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
+import com.vetlove.demo.Repositorio.EnfermedadRepositorio;
 import com.vetlove.demo.Repositorio.EstadoMasRepositorio;
 import com.vetlove.demo.Repositorio.MascotaRepositorio;
+import com.vetlove.demo.Repositorio.MedicamentoRepositorio;
+import com.vetlove.demo.Repositorio.PrioridadRepositorio;
+import com.vetlove.demo.Repositorio.TratamientoRepositorio;
 import com.vetlove.demo.Repositorio.VeterinarioRepositorio;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +39,18 @@ public class DatabaseInit implements ApplicationRunner {
 
     @Autowired
     EstadoMasRepositorio repoEstadoMas;
+
+    @Autowired
+    MedicamentoRepositorio repoMedicamento;
+
+    @Autowired
+    PrioridadRepositorio repoPrioridad;
+
+    @Autowired
+    EnfermedadRepositorio repoEnfermedad;
+
+    @Autowired
+    TratamientoRepositorio repoTratamiento;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -81,116 +105,218 @@ public class DatabaseInit implements ApplicationRunner {
         repoCliente.save(new Cliente("1000001027", "Natalia Ortiz", "nataliaortiz@yahoo.com", "6506506565"));
         repoCliente.save(new Cliente("1000001028", "Andres Gonzalez", "andresgonzalez@hotmail.com", "6606606666"));
 
-
-
         // MASCOTAS
-        repoMascota.save(new Mascota("Iris", "Husky", 3, 20000,"https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
-        repoMascota.save(new Mascota("Max", "Samoyero", 5, 40000,"https://images.hola.com/imagenes/mascotas/20200811173399/-de-perro-grandes-samoyedo/0-854-717/samoyedo-m.jpg?tx=w_680"));
-        repoMascota.save(new Mascota("Yogui", "Golden", 4, 30000,"https://www.hepper.com/wp-content/uploads/2021/11/golden-retriever_Shutterstock.jpg"));
-        repoMascota.save(new Mascota("Max", "Labrador", 5, 2500, "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
-        repoMascota.save(new Mascota("Luna", "Retriever", 2, 2200, "https://t2.ea.ltmcdn.com/es/posts/1/6/2/10_curiosidades_del_golden_retriever_21261_orig.jpg"));
-        repoMascota.save(new Mascota("Rocky", "Bulldog", 4, 2800, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_58776564-768x491.jpg"));
-        repoMascota.save(new Mascota("Bella", "Poodle", 1, 1800, "https://heraldodemexico.com.mx/wp-content/uploads/2020/06/caniche-1-1-1200x829.jpg"));
-        repoMascota.save(new Mascota("Charlie", "Boxer", 6, 3000, "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Male_fawn_Boxer_undocked.jpg/1200px-Male_fawn_Boxer_undocked.jpg"));
-        repoMascota.save(new Mascota("Lucy", "Pug", 2, 1500, "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/My_pug.jpg/640px-My_pug.jpg"));
-        repoMascota.save(new Mascota("Cooper", "Husky", 3, 2200, "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
-        repoMascota.save(new Mascota("Daisy", "Beagle", 4, 2100, "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
-        repoMascota.save(new Mascota("Bailey", "Rottweiler", 5, 2700, "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
-        repoMascota.save(new Mascota("Buddy", "Dachshund", 2, 1600, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Molly", "Shih Tzu", 3, 1900, "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
-        repoMascota.save(new Mascota("Sadie", "Great Dane", 4, 2900, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
-        repoMascota.save(new Mascota("Toby", "Corgi", 2, 1700, "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
-        repoMascota.save(new Mascota("Jack", "Doberman", 6, 3100, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
-        repoMascota.save(new Mascota("Sophie", "Chihuahua", 1, 1400, "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
-        repoMascota.save(new Mascota("Bear", "Maltese", 3, 2000, "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
-        repoMascota.save(new Mascota("Milo", "Collie", 4, 2300, "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
-        repoMascota.save(new Mascota("Lola", "Shepherd", 2, 2100, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
-        repoMascota.save(new Mascota("Harley", "Bernese", 5, 2800, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Coco", "Spaniel", 3, 1900, "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
-        repoMascota.save(new Mascota("Bear", "Saint", 4, 3000, "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
-        repoMascota.save(new Mascota("Bailey", "Mastiff", 6, 3200, "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
-        repoMascota.save(new Mascota("Gizmo", "Dalmatian", 2, 1700, "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
-        repoMascota.save(new Mascota("Maggie", "Schnauzer", 3, 1800, "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
-        repoMascota.save(new Mascota("Duke", "Hound", 5, 2600, "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
-        repoMascota.save(new Mascota("Zoey", "Inu", 2, 1600, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Riley", "Samoyed", 4, 2400, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
-        repoMascota.save(new Mascota("Lucky", "Malamute", 3, 2200, "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
-        repoMascota.save(new Mascota("Rosie", "Pomeranian", 2, 1500, "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
-        repoMascota.save(new Mascota("Sam", "Pitbull", 4, 2700, "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
-        repoMascota.save(new Mascota("Ollie", "Frise", 3, 1900, "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
-        repoMascota.save(new Mascota("Rusty", "Wolfhound", 5, 3000, "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
-        repoMascota.save(new Mascota("Penny", "Pinscher", 2, 1600, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Loki", "Akita", 4, 2500, "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
-        repoMascota.save(new Mascota("Charlie", "Bloodhound", 3, 2100, "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
-        repoMascota.save(new Mascota("Simba", "Weimaraner", 2, 1700, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Zeus", "Chow", 5, 2800, "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
-        repoMascota.save(new Mascota("Mia", "Bulldog", 3, 2000, "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
-        repoMascota.save(new Mascota("Murphy", "Pekingese", 4, 2200, "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
-        repoMascota.save(new Mascota("Luna", "Borzoi", 2, 1800, "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
-        repoMascota.save(new Mascota("Harper", "Basenji", 3, 1900, "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
-        repoMascota.save(new Mascota("Max", "Labrador", 6, 3000, "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
-        repoMascota.save(new Mascota("Bella", "Golden Retriever", 4, 2500, "https://t2.ea.ltmcdn.com/es/posts/1/6/2/10_curiosidades_del_golden_retriever_21261_orig.jpg"));
-        repoMascota.save(new Mascota("Rocky", "German Shepherd", 5, 2800, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
-        repoMascota.save(new Mascota("Daisy", "Beagle", 2, 1800, "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
-        repoMascota.save(new Mascota("Charlie", "Poodle", 4, 2200, "https://heraldodemexico.com.mx/wp-content/uploads/2020/06/caniche-1-1-1200x829.jpg"));
-        repoMascota.save(new Mascota("Lucy", "Shih Tzu", 3, 2000, "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
-        repoMascota.save(new Mascota("Cooper", "Boxer", 5, 2600, "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Male_fawn_Boxer_undocked.jpg/1200px-Male_fawn_Boxer_undocked.jpg"));
-        repoMascota.save(new Mascota("Lola", "Dachshund", 3, 1900, "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
-        repoMascota.save(new Mascota("Bailey", "Siberian Husky", 4, 2300, "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
-        repoMascota.save(new Mascota("Buddy", "Great Dane", 2, 2000, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
-        repoMascota.save(new Mascota("Sadie", "Rottweiler", 4, 2400, "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
-        repoMascota.save(new Mascota("Milo", "Doberman Pinscher", 3, 2100, "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
-        repoMascota.save(new Mascota("Sophie", "Cavalier", 2, 1900, "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
-        repoMascota.save(new Mascota("Toby", "Yorkshire Terrier", 5, 2500, "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
-        repoMascota.save(new Mascota("Chloe", "Pomeranian", 2, 1900, "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
-        repoMascota.save(new Mascota("Rusty", "Pug", 4, 2500, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Tucker", "Dachshund", 3, 2300, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Harley", "Siberian Husky", 5, 2700, "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
-        repoMascota.save(new Mascota("Luna", "Bulldog", 2, 2000, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Oliver", "French Bulldog", 4, 2400, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Daisy", "Poodle", 3, 2200, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Milo", "Doberman Pinscher", 5, 2800, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Lola", "Shiba Inu", 2, 1900, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Bailey", "Great Dane", 4, 2500, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Jack", "Labrador Retriever", 3, 2300, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Lucy", "Golden Retriever", 5, 2700, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Bear", "Beagle", 2, 2000, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Coco", "Pomeranian", 4, 2400, "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
-        repoMascota.save(new Mascota("Bailey", "Pug", 3, 2200, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Sasha", "Dachshund", 5, 2800, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Rocky", "Siberian Husky", 2, 1900, "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
-        repoMascota.save(new Mascota("Zoey", "Bulldog", 4, 2500, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Buddy", "French Bulldog", 3, 2300, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Luna", "Poodle", 5, 2700, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Cooper", "Doberman Pinscher", 2, 2000, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Sadie", "Shiba Inu", 4, 2400, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Charlie", "Great Dane", 3, 2200, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Bella", "Labrador Retriever", 5, 2800, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Max", "Golden Retriever", 2, 1900, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Ruby", "Beagle", 4, 2500, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Bailey", "Pomeranian", 3, 2300, "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
-        repoMascota.save(new Mascota("Buddy", "Pug", 5, 2700, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Molly", "Dachshund", 2, 2000, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Bailey", "Siberian Husky", 4, 2400, "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
-        repoMascota.save(new Mascota("Lola", "Bulldog", 3, 2200, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Bailey", "French Bulldog", 5, 2800, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Rocky", "Poodle", 2, 1900, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Daisy", "Doberman", 4, 2500, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Lucy", "Shiba Inu", 3, 2300, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Max", "Great Dane", 5, 2700, "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
-        repoMascota.save(new Mascota("Milo", "Labrador Retriever", 2, 2000, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Sophie", "Golden Retriever", 4, 2400, "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
-        repoMascota.save(new Mascota("Bailey", "Beagle", 3, 2200, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        repoMascota.save(new Mascota("Cooper", "Pomeranian", 5, 2800, "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
-        repoMascota.save(new Mascota("Sadie", "Pug", 2, 1900, "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
-        repoMascota.save(new Mascota("Shadow", "Dachshund", 4, 2500, "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
-        
+        repoMascota.save(new Mascota("Iris", "Husky", 3, 20000,
+                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+        repoMascota.save(new Mascota("Max", "Samoyero", 5, 40000,
+                "https://images.hola.com/imagenes/mascotas/20200811173399/-de-perro-grandes-samoyedo/0-854-717/samoyedo-m.jpg?tx=w_680"));
+        repoMascota.save(new Mascota("Yogui", "Golden", 4, 30000,
+                "https://www.hepper.com/wp-content/uploads/2021/11/golden-retriever_Shutterstock.jpg"));
+        repoMascota.save(new Mascota("Max", "Labrador", 5, 2500,
+                "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
+        repoMascota.save(new Mascota("Luna", "Retriever", 2, 2200,
+                "https://t2.ea.ltmcdn.com/es/posts/1/6/2/10_curiosidades_del_golden_retriever_21261_orig.jpg"));
+        repoMascota.save(new Mascota("Rocky", "Bulldog", 4, 2800,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_58776564-768x491.jpg"));
+        repoMascota.save(new Mascota("Bella", "Poodle", 1, 1800,
+                "https://heraldodemexico.com.mx/wp-content/uploads/2020/06/caniche-1-1-1200x829.jpg"));
+        repoMascota.save(new Mascota("Charlie", "Boxer", 6, 3000,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Male_fawn_Boxer_undocked.jpg/1200px-Male_fawn_Boxer_undocked.jpg"));
+        repoMascota.save(new Mascota("Lucy", "Pug", 2, 1500,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/My_pug.jpg/640px-My_pug.jpg"));
+        repoMascota.save(new Mascota("Cooper", "Husky", 3, 2200,
+                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+        repoMascota.save(new Mascota("Daisy", "Beagle", 4, 2100,
+                "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
+        repoMascota.save(new Mascota("Bailey", "Rottweiler", 5, 2700,
+                "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
+        repoMascota.save(new Mascota("Buddy", "Dachshund", 2, 1600,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Molly", "Shih Tzu", 3, 1900,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
+        repoMascota.save(new Mascota("Sadie", "Great Dane", 4, 2900,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
+        repoMascota.save(new Mascota("Toby", "Corgi", 2, 1700,
+                "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
+        repoMascota.save(new Mascota("Jack", "Doberman", 6, 3100,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
+        repoMascota.save(new Mascota("Sophie", "Chihuahua", 1, 1400,
+                "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
+        repoMascota.save(new Mascota("Bear", "Maltese", 3, 2000,
+                "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
+        repoMascota.save(new Mascota("Milo", "Collie", 4, 2300,
+                "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
+        repoMascota.save(new Mascota("Lola", "Shepherd", 2, 2100,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
+        repoMascota.save(new Mascota("Harley", "Bernese", 5, 2800,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Coco", "Spaniel", 3, 1900,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
+        repoMascota.save(new Mascota("Bear", "Saint", 4, 3000,
+                "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
+        repoMascota.save(new Mascota("Bailey", "Mastiff", 6, 3200,
+                "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
+        repoMascota.save(new Mascota("Gizmo", "Dalmatian", 2, 1700,
+                "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
+        repoMascota.save(new Mascota("Maggie", "Schnauzer", 3, 1800,
+                "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
+        repoMascota.save(new Mascota("Duke", "Hound", 5, 2600,
+                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+        repoMascota.save(new Mascota("Zoey", "Inu", 2, 1600,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Riley", "Samoyed", 4, 2400,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
+        repoMascota.save(new Mascota("Lucky", "Malamute", 3, 2200,
+                "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
+        repoMascota.save(new Mascota("Rosie", "Pomeranian", 2, 1500,
+                "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
+        repoMascota.save(new Mascota("Sam", "Pitbull", 4, 2700,
+                "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
+        repoMascota.save(new Mascota("Ollie", "Frise", 3, 1900,
+                "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
+        repoMascota.save(new Mascota("Rusty", "Wolfhound", 5, 3000,
+                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+        repoMascota.save(new Mascota("Penny", "Pinscher", 2, 1600,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Loki", "Akita", 4, 2500,
+                "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
+        repoMascota.save(new Mascota("Charlie", "Bloodhound", 3, 2100,
+                "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
+        repoMascota.save(new Mascota("Simba", "Weimaraner", 2, 1700,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Zeus", "Chow", 5, 2800,
+                "https://t1.uc.ltmcdn.com/es/posts/8/7/8/cuanto_mide_un_perro_chihuahua_29878_600.jpg"));
+        repoMascota.save(new Mascota("Mia", "Bulldog", 3, 2000,
+                "https://upload.wikimedia.org/wikipedia/commons/6/6c/1Dog-rough-collie-portrait.jpg"));
+        repoMascota.save(new Mascota("Murphy", "Pekingese", 4, 2200,
+                "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
+        repoMascota.save(new Mascota("Luna", "Borzoi", 2, 1800,
+                "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2023/11/how-long-do-corgis-live.jpeg.jpg"));
+        repoMascota.save(new Mascota("Harper", "Basenji", 3, 1900,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
+        repoMascota.save(new Mascota("Max", "Labrador", 6, 3000,
+                "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
+        repoMascota.save(new Mascota("Bella", "Golden Retriever", 4, 2500,
+                "https://t2.ea.ltmcdn.com/es/posts/1/6/2/10_curiosidades_del_golden_retriever_21261_orig.jpg"));
+        repoMascota.save(new Mascota("Rocky", "German Shepherd", 5, 2800,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
+        repoMascota.save(new Mascota("Daisy", "Beagle", 2, 1800,
+                "https://biodog.es/wp-content/uploads/2018/12/Beagle-cachorro_razas-de-perro.jpg"));
+        repoMascota.save(new Mascota("Charlie", "Poodle", 4, 2200,
+                "https://heraldodemexico.com.mx/wp-content/uploads/2020/06/caniche-1-1-1200x829.jpg"));
+        repoMascota.save(new Mascota("Lucy", "Shih Tzu", 3, 2000,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Shih-Tzu.JPG/320px-Shih-Tzu.JPG"));
+        repoMascota.save(new Mascota("Cooper", "Boxer", 5, 2600,
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Male_fawn_Boxer_undocked.jpg/1200px-Male_fawn_Boxer_undocked.jpg"));
+        repoMascota.save(new Mascota("Lola", "Dachshund", 3, 1900,
+                "https://www.thesprucepets.com/thmb/8UgAnzf_7o7i7qPPr528XtM0IW8=/2121x0/filters:no_upscale():strip_icc()/GettyImages-839279536-313d30c290584bc0a207bc6243263bd4.jpg"));
+        repoMascota.save(new Mascota("Bailey", "Siberian Husky", 4, 2300,
+                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+        repoMascota.save(new Mascota("Buddy", "Great Dane", 2, 2000,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/deutsche-dogge.jpg"));
+        repoMascota.save(new Mascota("Sadie", "Rottweiler", 4, 2400,
+                "https://es.mypet.com/wp-content/uploads/sites/23/2021/03/rottweiler-no-lo-dejes-al-azar-scaled-1.jpg"));
+        repoMascota.save(new Mascota("Milo", "Doberman Pinscher", 3, 2100,
+                "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/Doberman.jpg"));
+        repoMascota.save(new Mascota("Sophie", "Cavalier", 2, 1900,
+                "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/maltese-dog-breed-info.jpeg"));
+        repoMascota.save(new Mascota("Toby", "Yorkshire Terrier", 5, 2500,
+                "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
+        repoMascota.save(new Mascota("Chloe", "Pomeranian", 2, 1900,
+                "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
+        repoMascota.save(new Mascota("Rusty", "Pug", 4, 2500,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Tucker", "Dachshund", 3, 2300,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Harley", "Siberian Husky", 5, 2700,
+                "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
+        repoMascota.save(new Mascota("Luna", "Bulldog", 2, 2000,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Oliver", "French Bulldog", 4, 2400,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Daisy", "Poodle", 3, 2200,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Milo", "Doberman Pinscher", 5, 2800,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Lola", "Shiba Inu", 2, 1900,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Bailey", "Great Dane", 4, 2500,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Jack", "Labrador Retriever", 3, 2300,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Lucy", "Golden Retriever", 5, 2700,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Bear", "Beagle", 2, 2000,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Coco", "Pomeranian", 4, 2400,
+                "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
+        repoMascota.save(new Mascota("Bailey", "Pug", 3, 2200,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Sasha", "Dachshund", 5, 2800,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Rocky", "Siberian Husky", 2, 1900,
+                "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
+        repoMascota.save(new Mascota("Zoey", "Bulldog", 4, 2500,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Buddy", "French Bulldog", 3, 2300,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Luna", "Poodle", 5, 2700,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Cooper", "Doberman Pinscher", 2, 2000,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Sadie", "Shiba Inu", 4, 2400,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Charlie", "Great Dane", 3, 2200,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Bella", "Labrador Retriever", 5, 2800,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Max", "Golden Retriever", 2, 1900,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Ruby", "Beagle", 4, 2500,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Bailey", "Pomeranian", 3, 2300,
+                "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
+        repoMascota.save(new Mascota("Buddy", "Pug", 5, 2700,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Molly", "Dachshund", 2, 2000,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Bailey", "Siberian Husky", 4, 2400,
+                "https://t1.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_orig.jpg"));
+        repoMascota.save(new Mascota("Lola", "Bulldog", 3, 2200,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Bailey", "French Bulldog", 5, 2800,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Rocky", "Poodle", 2, 1900,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Daisy", "Doberman", 4, 2500,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Lucy", "Shiba Inu", 3, 2300,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Max", "Great Dane", 5, 2700,
+                "https://hips.hearstapps.com/hmg-prod/images/gettyimages-695480884-64f8446a4e85d.jpg")); // Aleatoria
+        repoMascota.save(new Mascota("Milo", "Labrador Retriever", 2, 2000,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Sophie", "Golden Retriever", 4, 2400,
+                "https://www.nationalgeographic.com.es/medio/2023/05/31/un-perro-de-la-raza-labrador-retriever_00000000_d0938095_230531120054_800x800.jpg"));
+        repoMascota.save(new Mascota("Bailey", "Beagle", 3, 2200,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
+        repoMascota.save(new Mascota("Cooper", "Pomeranian", 5, 2800,
+                "https://www.purina.es/sites/default/files/styles/square_medium_440x440/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-09Pomeranian.jpg?itok=DXKBe758"));
+        repoMascota.save(new Mascota("Sadie", "Pug", 2, 1900,
+                "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JHLWPZQCQNCJRIYVCLNUKIISU4.jpg"));
+        repoMascota.save(new Mascota("Shadow", "Dachshund", 4, 2500,
+                "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
 
-        repoVeterinario.save(new Veterinario("12345678", "Sebastián Angarita", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-        repoVeterinario.save(new Veterinario("87654321", "Juan Zuluaga", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-        repoVeterinario.save(new Veterinario("11223344", "Carlos Parra", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-        repoVeterinario.save(new Veterinario("55667788", "Jose Hurtado", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-        repoVeterinario.save(new Veterinario("18273645", "Andrea Rueda", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("12345678", "Sebastián Angarita", "password",
+                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("87654321", "Juan Zuluaga", "password",
+                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("11223344", "Carlos Parra", "password",
+                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("55667788", "Jose Hurtado", "password",
+                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+        repoVeterinario.save(new Veterinario("18273645", "Andrea Rueda", "password",
+                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
 
         repoEstadoMas.save(new EstadoMas("Ingresado"));
         repoEstadoMas.save(new EstadoMas("De baja"));
@@ -232,45 +358,190 @@ public class DatabaseInit implements ApplicationRunner {
         }
 
         for (Long i = 1L; i <= 10L; i++) {
-            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no
+                                                                           // exista
             if (asociarCliente != null) {
-                asociarCliente.setVeterinario(repoVeterinario.findById(1L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                asociarCliente.setVeterinario(repoVeterinario.findById(1L).orElse(null)); // Manejar el caso de que el
+                                                                                          // veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
 
         for (Long i = 11L; i <= 20L; i++) {
-            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no
+                                                                           // exista
             if (asociarCliente != null) {
-                asociarCliente.setVeterinario(repoVeterinario.findById(2L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                asociarCliente.setVeterinario(repoVeterinario.findById(2L).orElse(null)); // Manejar el caso de que el
+                                                                                          // veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
 
         for (Long i = 21L; i <= 30L; i++) {
-            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no
+                                                                           // exista
             if (asociarCliente != null) {
-                asociarCliente.setVeterinario(repoVeterinario.findById(3L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                asociarCliente.setVeterinario(repoVeterinario.findById(3L).orElse(null)); // Manejar el caso de que el
+                                                                                          // veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
 
         for (Long i = 31L; i <= 40L; i++) {
-            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no
+                                                                           // exista
             if (asociarCliente != null) {
-                asociarCliente.setVeterinario(repoVeterinario.findById(4L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                asociarCliente.setVeterinario(repoVeterinario.findById(4L).orElse(null)); // Manejar el caso de que el
+                                                                                          // veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
 
         for (Long i = 41L; i <= 50L; i++) {
-            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no exista
+            Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el cliente no
+                                                                           // exista
             if (asociarCliente != null) {
-                asociarCliente.setVeterinario(repoVeterinario.findById(5L).orElse(null)); // Manejar el caso de que el veterinario no exista
+                asociarCliente.setVeterinario(repoVeterinario.findById(5L).orElse(null)); // Manejar el caso de que el
+                                                                                          // veterinario no exista
                 repoCliente.save(asociarCliente);
             }
         }
+
+        //Añadir prioridades de enfermedad
+        Prioridad prioridad1 = new Prioridad("Baja");
+        Prioridad prioridad2 = new Prioridad("Media");
+        Prioridad prioridad3 = new Prioridad("Alta");
+
+        repoPrioridad.save(prioridad1);
+        repoPrioridad.save(prioridad2);
+        repoPrioridad.save(prioridad3);
+
+        //Añadir enfermedades
+        Enfermedad enfermedad = new Enfermedad("Parásitos");
+        enfermedad.setPrioridad(prioridad3);
+        repoEnfermedad.save(enfermedad);
+        Enfermedad enfermedad1 = new Enfermedad("Diarrea");
+        enfermedad.setPrioridad(prioridad2);
+        repoEnfermedad.save(enfermedad1);
+        Enfermedad enfermedad2 = new Enfermedad("Asma");
+        enfermedad.setPrioridad(prioridad1);
+        repoEnfermedad.save(enfermedad2);
+        Enfermedad enfermedad3 = new Enfermedad("Dermatitis");
+        enfermedad.setPrioridad(prioridad2);
+        repoEnfermedad.save(enfermedad3);
+        Enfermedad enfermedad4 = new Enfermedad("Insuficiencia renal");
+        enfermedad.setPrioridad(prioridad3);
+        repoEnfermedad.save(enfermedad4);
+        Enfermedad enfermedad5 = new Enfermedad("Hipertensión");
+        enfermedad.setPrioridad(prioridad3);
+        repoEnfermedad.save(enfermedad5);
+        Enfermedad enfermedad6 = new Enfermedad("Epilepsia");
+        enfermedad.setPrioridad(prioridad3);
+        repoEnfermedad.save(enfermedad6);
+        Enfermedad enfermedad7 = new Enfermedad("Gingivitis");
+        enfermedad.setPrioridad(prioridad1);
+        repoEnfermedad.save(enfermedad7);
+        Enfermedad enfermedad8 = new Enfermedad("Epilepsia");
+        enfermedad.setPrioridad(prioridad3);
+        repoEnfermedad.save(enfermedad8);
+        Enfermedad enfermedad9 = new Enfermedad("Sarro");
+        enfermedad.setPrioridad(prioridad1);
+        repoEnfermedad.save(enfermedad9);
+        Enfermedad enfermedad10 = new Enfermedad("Vómito");
+        enfermedad.setPrioridad(prioridad1);
+        repoEnfermedad.save(enfermedad10);
         
+
+        // Cargar medicamentos desde un excel
+        try (BufferedReader br = new BufferedReader(new FileReader("C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/MEDICAMENTOS_VETERINARIA.csv"))) {
+            String line = br.readLine();
+            line = br.readLine();
+
+            while ((line = br.readLine()) != null) {
+                Medicamento medicamento = new Medicamento();
+                String[] values = line.split(";");
+                medicamento.setNombre(values[0]);
+                medicamento.setPrecio(Float.parseFloat(values[1].substring(1)));
+                medicamento.setCosto(Float.parseFloat(values[2].substring(1)));
+                medicamento.setUnidades(Integer.parseInt(values[3]));
+                medicamento.setVendidas(Integer.parseInt(values[4]));
+                int randomNumber = (int) (Math.random() * 11);
+                switch (randomNumber) {
+                    case 0:
+                        medicamento.setEnfermedad(enfermedad);
+                        break;
+
+                    case 1:
+                        medicamento.setEnfermedad(enfermedad1);
+                        break;
+
+                    case 2:
+                        medicamento.setEnfermedad(enfermedad2);
+                        break;
+
+                    case 3:
+                        medicamento.setEnfermedad(enfermedad3);
+                        break;
+
+                    case 4:
+                        medicamento.setEnfermedad(enfermedad4);
+                        break;
+                        
+                    case 5:
+                        medicamento.setEnfermedad(enfermedad5);
+                        break;
+
+                    case 6:
+                        medicamento.setEnfermedad(enfermedad6);
+                        break;
+
+                    case 7:
+                        medicamento.setEnfermedad(enfermedad7);
+                        break;
+
+                    case 8:
+                        medicamento.setEnfermedad(enfermedad8);
+                        break;
+
+                    case 9:
+                        medicamento.setEnfermedad(enfermedad9);
+                        break;
+                        
+                    default:
+                        medicamento.setEnfermedad(enfermedad10);
+                        break;
+                }
+
+                repoMedicamento.save(medicamento);
+            }
+        }
+
+        //Crear Tratamientos en la BD
+        for (int i = 0; i < 10; i++){
+            LocalDate startDate = LocalDate.of(2000, 1, 1);
+            LocalDate endDate = LocalDate.of(2023, 12, 31);
+    
+            long randomDays = new Random().nextLong(ChronoUnit.DAYS.between(startDate, endDate));
+    
+            LocalDate randomDate = startDate.plusDays(randomDays);
+
+            long randomDays2 = new Random().nextLong(ChronoUnit.DAYS.between(randomDate, endDate));
+    
+            LocalDate randomDate2 = startDate.plusDays(randomDays2);
+
+            Date dateInicio = new java.sql.Date(randomDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            Date dateFinal = new java.sql.Date(randomDate2.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+    
+            Tratamiento tratamiento = new Tratamiento();
+            tratamiento.setCosto((float) (Math.random() * 918432));
+            tratamiento.setFechaInicio(dateInicio);
+            tratamiento.setFechaFin(dateFinal);
+            Long mascotaId = (long) (Math.random() * 100);
+            tratamiento.setMascota(repoMascota.findById(mascotaId).get());
+            Long medicamentoId = (long) (Math.random() * 522);
+            tratamiento.setMedicamento(repoMedicamento.findById(medicamentoId).get());
+            repoTratamiento.save(tratamiento);
+        }
 
     }
 }

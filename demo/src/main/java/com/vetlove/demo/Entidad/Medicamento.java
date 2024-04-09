@@ -16,6 +16,7 @@ public class Medicamento {
     @Id
     @GeneratedValue
     Long idMedicamento;
+    String nombre;
     float costo;
     float precio;
     int unidades;
@@ -94,6 +95,22 @@ public class Medicamento {
 
     public void setEnfermedad(Enfermedad enfermedad) {
         this.enfermedad = enfermedad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Tratamiento> getTratamientos() {
+        return tratamientos;
+    }
+
+    public void setTratamientos(List<Tratamiento> tratamientos) {
+        this.tratamientos = tratamientos;
     }
 
     
