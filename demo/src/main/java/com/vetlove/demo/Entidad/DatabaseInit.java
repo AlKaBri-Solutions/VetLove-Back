@@ -523,7 +523,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Cargar medicamentos desde un excel
                 try (BufferedReader br = new BufferedReader(new FileReader(
-                                "C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/MEDICAMENTOS_VETERINARIA.csv"))) {
+                                "./demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
                         String line = br.readLine();
                         line = br.readLine();
 
