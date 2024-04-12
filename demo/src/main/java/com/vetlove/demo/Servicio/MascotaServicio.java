@@ -56,4 +56,11 @@ public class MascotaServicio implements IMascotaServicio{
         return repoMascota.findByVeterinarioId(id);
     }
 
+    @Override
+    public void undeleteMascota(Long id) {
+        Mascota mascota = repoMascota.findById(id).orElse(null);
+        mascota.setEstado(repoEstadoMas.findByNombre("Ingresado"));
+        repoMascota.save(mascota);
+    }
+
 }

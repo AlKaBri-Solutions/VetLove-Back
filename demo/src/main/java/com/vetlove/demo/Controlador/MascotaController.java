@@ -91,4 +91,9 @@ public class MascotaController {
     public void deleteMascotaById(@PathVariable Long id) {
         mascotaServicio.deleteMascota(id);
     }
+
+    @DeleteMapping("/undelete/{id}")
+    public void undeleteMascotaById(@PathVariable Long id) {
+        mascotaServicio.undeleteMascota(id);
+    }
 }
