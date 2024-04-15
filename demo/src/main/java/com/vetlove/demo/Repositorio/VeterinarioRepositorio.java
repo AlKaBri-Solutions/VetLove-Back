@@ -7,5 +7,5 @@ import com.vetlove.demo.Entidad.Veterinario;
 
 @Repository
 public interface VeterinarioRepositorio extends JpaRepository<Veterinario, Long>{
-    
+    Veterinario findByCedula(String cedula);
 }

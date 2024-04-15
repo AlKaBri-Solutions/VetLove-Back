@@ -50,4 +50,9 @@ public class VeterinarioServicio implements IVeterinarioServicio{
         return (long) -1;
     }
 
+    @Override
+    public Veterinario SearchByCedula(String cedula) {
+        return repoVeterinario.findByCedula(cedula);
+    }
+
 }

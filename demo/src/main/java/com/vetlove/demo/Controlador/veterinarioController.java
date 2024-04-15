@@ -44,6 +44,11 @@ public class veterinarioController {
     public Veterinario getVeterinarioById(@RequestParam Long id){
         return veterinarioServicio.SearchById(id);
     }
+
+    @GetMapping("/findCedula")
+    public Veterinario getClienteByCedula(@RequestParam String cedula) {
+        return veterinarioServicio.SearchByCedula(cedula);
+    }
     
     //Métodos POST
 
