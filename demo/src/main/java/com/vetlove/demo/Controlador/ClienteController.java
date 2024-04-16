@@ -51,15 +51,6 @@ public class ClienteController {
     //Métodos POST
     @PostMapping("/add")
     public void addCliente(@RequestBody AddClienteRequest params) {
-        System.out.println("\n\n\n\n\n");
-        System.out.println(params.getCliente());
-        System.out.println(params.getCliente().getNombre());
-        System.out.println(params.getCliente().getCorreo());
-        System.out.println(params.getCliente().getCelular());
-        System.out.println(params.getCliente().getCedula());
-        System.out.println("\n");
-        System.out.println(params.getId());
-        System.out.println("\n\n\n\n\n");
         
         Cliente client = params.getCliente();
         Veterinario veterinario = veterinarioServicio.SearchById(Long.parseLong(params.getId()));
@@ -71,8 +62,9 @@ public class ClienteController {
     @PutMapping("/update")
     public void updataeCliente(@RequestBody AddClienteRequest params) {
         Veterinario veterinario = clienteServicio.SearchById(Long.parseLong(params.getId())).getVeterinario();
-        params.getCliente().setVeterinario(veterinario);
-        clienteServicio.save(params.getCliente());
+        Cliente cliente = params.getCliente();
+        cliente.setVeterinario(veterinario);
+        clienteServicio.save(cliente);
     }
     
 
