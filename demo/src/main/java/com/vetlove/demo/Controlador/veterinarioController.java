@@ -46,7 +46,7 @@ public class veterinarioController {
     }
 
     @GetMapping("/findCedula")
-    public Veterinario getClienteByCedula(@RequestParam String cedula) {
+    public Veterinario getVeterinarioByCedula(@RequestParam String cedula) {
         return veterinarioServicio.SearchByCedula(cedula);
     }
     
