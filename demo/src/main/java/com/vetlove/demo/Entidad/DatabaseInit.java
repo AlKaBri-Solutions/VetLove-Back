@@ -17,6 +17,7 @@ import com.vetlove.demo.Repositorio.ClienteRepositorio;
 import com.vetlove.demo.Repositorio.EnfermedadRepositorio;
 import com.vetlove.demo.Repositorio.EspecialidadRepositorio;
 import com.vetlove.demo.Repositorio.EstadoMasRepositorio;
+import com.vetlove.demo.Repositorio.EstadoVetRepositorio;
 import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.MedicamentoRepositorio;
 import com.vetlove.demo.Repositorio.PrioridadRepositorio;
@@ -55,6 +56,9 @@ public class DatabaseInit implements ApplicationRunner {
 
         @Autowired
         EspecialidadRepositorio repoEspecialidad;
+
+        @Autowired
+        EstadoVetRepositorio repoEstadoVet;
 
         @Override
         public void run(ApplicationArguments args) throws Exception {
@@ -343,20 +347,29 @@ public class DatabaseInit implements ApplicationRunner {
                 repoEspecialidad.save(new Especialidad("Gastroenterologia"));
                 repoEspecialidad.save(new Especialidad("Ortopedia"));
 
+                repoEstadoVet.save(new EstadoVet("Activo"));
+                repoEstadoVet.save(new EstadoVet("Inactivo"));
+                repoEstadoVet.save(new EstadoVet("Vacaciones"));
+
                 Veterinario asociarVet = repoVeterinario.findById(1L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(1L).get());
+                asociarVet.setEstado(repoEstadoVet.findByNombre("Activo"));
                 repoVeterinario.save(asociarVet);
                 asociarVet = repoVeterinario.findById(2L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(2L).get());
+                asociarVet.setEstado(repoEstadoVet.findByNombre("Activo"));
                 repoVeterinario.save(asociarVet);
                 asociarVet = repoVeterinario.findById(3L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(3L).get());
+                asociarVet.setEstado(repoEstadoVet.findByNombre("Inactivo"));
                 repoVeterinario.save(asociarVet);
                 asociarVet = repoVeterinario.findById(4L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(4L).get());
+                asociarVet.setEstado(repoEstadoVet.findByNombre("Activo"));
                 repoVeterinario.save(asociarVet);
                 asociarVet = repoVeterinario.findById(5L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(5L).get());
+                asociarVet.setEstado(repoEstadoVet.findByNombre("Vacaciones"));
                 repoVeterinario.save(asociarVet);
 
                 repoEstadoMas.save(new EstadoMas("Ingresado"));
@@ -614,6 +627,8 @@ public class DatabaseInit implements ApplicationRunner {
                         tratamiento.setMedicamento(repoMedicamento.findById(medicamentoId).get());
                         repoTratamiento.save(tratamiento);
                 }
-
+                
+                
         }
+
 }

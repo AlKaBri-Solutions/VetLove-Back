@@ -28,7 +28,7 @@ public class Veterinario {
     @OneToMany(mappedBy = "veterinario")
     List<Cliente> clientes = new ArrayList<>();
 
-    @JsonIgnore
+    
     @ManyToOne
     EstadoVet estado;
 
@@ -109,6 +109,14 @@ public class Veterinario {
 
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    public EstadoVet getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoVet estado) {
+        this.estado = estado;
     }
 
 

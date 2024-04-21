@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.vetlove.demo.Entidad.Veterinario;
 import com.vetlove.demo.Interfaz.IVeterinarioServicio;
+import com.vetlove.demo.Repositorio.EstadoVetRepositorio;
 import com.vetlove.demo.Repositorio.VeterinarioRepositorio;
 
 @Service
 public class VeterinarioServicio implements IVeterinarioServicio{
     @Autowired
     VeterinarioRepositorio repoVeterinario;
+
+    @Autowired
+    EstadoVetRepositorio repoEstadoVet;
 
     @Override
     public Veterinario SearchById(Long id){
@@ -26,7 +30,9 @@ public class VeterinarioServicio implements IVeterinarioServicio{
 
     @Override
     public void deleteVeterinario(Long id){
-        repoVeterinario.deleteById(id);
+        Veterinario veterinario = repoVeterinario.findById(id).orElse(null);
+        veterinario.setEstado(repoEstadoVet.findByNombre("Inactivo"));
+        repoVeterinario.save(veterinario);
     }
 
     @Override
@@ -54,5 +60,13 @@ public class VeterinarioServicio implements IVeterinarioServicio{
     public Veterinario SearchByCedula(String cedula) {
         return repoVeterinario.findByCedula(cedula);
     }
+
+    @Override
+    public void undeleteVeterinario(Long id) {
+        Veterinario veterinario = repoVeterinario.findById(id).orElse(null);
+        veterinario.setEstado(repoEstadoVet.findByNombre("Activo"));
+        repoVeterinario.save(veterinario);
+    }
+
 
 }

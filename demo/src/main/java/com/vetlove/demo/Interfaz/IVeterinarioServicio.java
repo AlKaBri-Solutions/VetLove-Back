@@ -12,4 +12,5 @@ public interface IVeterinarioServicio {
     public void updateVeterinario(Veterinario veterinario);
     public Long validateLogin(String cedula, String password);
     public Veterinario SearchByCedula(String cedula);
+    public void undeleteVeterinario(Long id);
 }
