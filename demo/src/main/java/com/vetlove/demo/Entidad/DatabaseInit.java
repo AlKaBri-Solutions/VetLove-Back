@@ -589,13 +589,14 @@ public class DatabaseInit implements ApplicationRunner {
                                         randomDate2.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
                         Tratamiento tratamiento = new Tratamiento();
-                        tratamiento.setCosto((float) (Math.random() * 918432));
                         tratamiento.setFechaInicio(dateInicio);
                         tratamiento.setFechaFin(dateFinal);
                         Long mascotaId = (long) (Math.random() * 100);
                         tratamiento.setMascota(repoMascota.findById(mascotaId).get());
                         Long medicamentoId = (long) (Math.random() * 522);
-                        tratamiento.setMedicamento(repoMedicamento.findById(medicamentoId).get());
+                        Medicamento medicamento = repoMedicamento.findById(medicamentoId).get();
+                        tratamiento.setMedicamento(medicamento);
+                        tratamiento.setCosto((float) medicamento.getPrecio());
                         if (Math.random() > 0.2) {
                                 tratamiento.setMedicamentoAplicado(false);
                         }

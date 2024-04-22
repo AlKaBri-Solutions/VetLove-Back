@@ -22,7 +22,6 @@ public class Mascota {
     Integer peso;
     String foto; // Url de la imagen
 
-    @JsonIgnore
     @ManyToOne
     Cliente dueno;
 
