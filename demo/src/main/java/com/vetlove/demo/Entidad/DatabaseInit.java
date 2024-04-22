@@ -392,100 +392,71 @@ public class DatabaseInit implements ApplicationRunner {
                 Long totalClientes = repoCliente.count(); // Obtener la cantidad total de clientes
 
                 for (Long i = 1L; i <= 100L; i++) {
-                        Mascota asociar1 = repoMascota.findById(i).orElse(null); // Manejar el caso de que la mascota no
-                                                                                 // exista
+                        Mascota asociar1 = repoMascota.findById(i).orElse(null);
+
                         if (asociar1 != null) {
-                                Cliente cliente = repoCliente.findById(contadorCliente).orElse(null); // Manejar el caso
-                                                                                                      // de que el
-                                                                                                      // cliente no
-                                                                                                      // exista
+                                Cliente cliente = repoCliente.findById(contadorCliente).orElse(null);
+
                                 if (cliente != null) {
                                         asociar1.setDueno(cliente);
-                                        asociar1.setEstado(repoEstadoMas.findById(1L).orElse(null)); // Manejar el caso
-                                                                                                     // de que el estado
-                                                                                                     // no
-                                                                                                     // exista
+                                        asociar1.setEstado(repoEstadoMas.findById(1L).orElse(null));
+
                                         repoMascota.save(asociar1);
 
-                                        // Incrementar contadorCliente cada dos iteraciones
                                         if (i % 2 == 0) {
-                                                contadorCliente = (contadorCliente % totalClientes) + 1L; // Asegurarse
-                                                                                                          // de no
-                                                                                                          // exceder la
-                                                                                                          // cantidad
-                                                                                                          // total de
-                                                                                                          // clientes
+                                                contadorCliente = (contadorCliente % totalClientes) + 1L;
+
                                         }
                                 }
                         }
                 }
 
                 for (Long i = 1L; i <= 10L; i++) {
-                        Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el
-                                                                                       // cliente no
-                                                                                       // exista
+                        Cliente asociarCliente = repoCliente.findById(i).orElse(null);
+
                         if (asociarCliente != null) {
-                                asociarCliente.setVeterinario(repoVeterinario.findById(1L).orElse(null)); // Manejar el
-                                                                                                          // caso de que
-                                                                                                          // el
-                                                                                                          // veterinario
-                                                                                                          // no exista
+                                asociarCliente.setVeterinario(repoVeterinario.findById(1L).orElse(null));
+
                                 repoCliente.save(asociarCliente);
                         }
                 }
 
                 for (Long i = 11L; i <= 20L; i++) {
-                        Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el
-                                                                                       // cliente no
-                                                                                       // exista
+                        Cliente asociarCliente = repoCliente.findById(i).orElse(null);
+
                         if (asociarCliente != null) {
-                                asociarCliente.setVeterinario(repoVeterinario.findById(2L).orElse(null)); // Manejar el
-                                                                                                          // caso de que
-                                                                                                          // el
-                                                                                                          // veterinario
-                                                                                                          // no exista
+                                asociarCliente.setVeterinario(repoVeterinario.findById(2L).orElse(null));
+
                                 repoCliente.save(asociarCliente);
                         }
                 }
 
                 for (Long i = 21L; i <= 30L; i++) {
-                        Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el
-                                                                                       // cliente no
-                                                                                       // exista
+                        Cliente asociarCliente = repoCliente.findById(i).orElse(null);
+
                         if (asociarCliente != null) {
-                                asociarCliente.setVeterinario(repoVeterinario.findById(3L).orElse(null)); // Manejar el
-                                                                                                          // caso de que
-                                                                                                          // el
-                                                                                                          // veterinario
-                                                                                                          // no exista
+                                asociarCliente.setVeterinario(repoVeterinario.findById(3L).orElse(null));
+
                                 repoCliente.save(asociarCliente);
                         }
                 }
 
                 for (Long i = 31L; i <= 40L; i++) {
-                        Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el
-                                                                                       // cliente no
-                                                                                       // exista
+                        Cliente asociarCliente = repoCliente.findById(i).orElse(null);
+
                         if (asociarCliente != null) {
-                                asociarCliente.setVeterinario(repoVeterinario.findById(4L).orElse(null)); // Manejar el
-                                                                                                          // caso de que
-                                                                                                          // el
-                                                                                                          // veterinario
-                                                                                                          // no exista
+                                asociarCliente.setVeterinario(repoVeterinario.findById(4L).orElse(null));
+
                                 repoCliente.save(asociarCliente);
                         }
                 }
 
                 for (Long i = 41L; i <= 50L; i++) {
-                        Cliente asociarCliente = repoCliente.findById(i).orElse(null); // Manejar el caso de que el
-                                                                                       // cliente no
-                                                                                       // exista
+                        Cliente asociarCliente = repoCliente.findById(i).orElse(null);
+
                         if (asociarCliente != null) {
-                                asociarCliente.setVeterinario(repoVeterinario.findById(5L).orElse(null)); // Manejar el
-                                                                                                          // caso de que
-                                                                                                          // el
-                                                                                                          // veterinario
-                                                                                                          // no exista
+                                asociarCliente.setVeterinario(repoVeterinario.findById(5L).orElse(null));
+
                                 repoCliente.save(asociarCliente);
                         }
                 }
@@ -501,37 +472,37 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Añadir enfermedades
                 Enfermedad enfermedad = new Enfermedad("Parásitos");
-                enfermedad.setPrioridad(prioridad3);
+                enfermedad.setPrioridad(repoPrioridad.findById(1L).orElse(null));
                 repoEnfermedad.save(enfermedad);
                 Enfermedad enfermedad1 = new Enfermedad("Diarrea");
-                enfermedad.setPrioridad(prioridad2);
+                enfermedad1.setPrioridad(repoPrioridad.findById(2L).orElse(null));
                 repoEnfermedad.save(enfermedad1);
                 Enfermedad enfermedad2 = new Enfermedad("Asma");
-                enfermedad.setPrioridad(prioridad1);
+                enfermedad2.setPrioridad(repoPrioridad.findById(3L).orElse(null));
                 repoEnfermedad.save(enfermedad2);
                 Enfermedad enfermedad3 = new Enfermedad("Dermatitis");
-                enfermedad.setPrioridad(prioridad2);
+                enfermedad3.setPrioridad(repoPrioridad.findById(1L).orElse(null));
                 repoEnfermedad.save(enfermedad3);
                 Enfermedad enfermedad4 = new Enfermedad("Insuficiencia renal");
-                enfermedad.setPrioridad(prioridad3);
+                enfermedad4.setPrioridad(repoPrioridad.findById(2L).orElse(null));
                 repoEnfermedad.save(enfermedad4);
                 Enfermedad enfermedad5 = new Enfermedad("Hipertensión");
-                enfermedad.setPrioridad(prioridad3);
+                enfermedad5.setPrioridad(repoPrioridad.findById(3L).orElse(null));
                 repoEnfermedad.save(enfermedad5);
                 Enfermedad enfermedad6 = new Enfermedad("Epilepsia");
-                enfermedad.setPrioridad(prioridad3);
+                enfermedad6.setPrioridad(repoPrioridad.findById(1L).orElse(null));
                 repoEnfermedad.save(enfermedad6);
                 Enfermedad enfermedad7 = new Enfermedad("Gingivitis");
-                enfermedad.setPrioridad(prioridad1);
+                enfermedad7.setPrioridad(repoPrioridad.findById(2L).orElse(null));
                 repoEnfermedad.save(enfermedad7);
                 Enfermedad enfermedad8 = new Enfermedad("Epilepsia");
-                enfermedad.setPrioridad(prioridad3);
+                enfermedad8.setPrioridad(repoPrioridad.findById(3L).orElse(null));
                 repoEnfermedad.save(enfermedad8);
                 Enfermedad enfermedad9 = new Enfermedad("Sarro");
-                enfermedad.setPrioridad(prioridad1);
+                enfermedad9.setPrioridad(repoPrioridad.findById(1L).orElse(null));
                 repoEnfermedad.save(enfermedad9);
                 Enfermedad enfermedad10 = new Enfermedad("Vómito");
-                enfermedad.setPrioridad(prioridad1);
+                enfermedad10.setPrioridad(repoPrioridad.findById(2L).orElse(null));
                 repoEnfermedad.save(enfermedad10);
 
                 // Cargar medicamentos desde un excel
@@ -600,9 +571,9 @@ public class DatabaseInit implements ApplicationRunner {
                 }
 
                 // Crear Tratamientos en la BD
-                for (int i = 0; i < 10; i++) {
-                        LocalDate startDate = LocalDate.of(2000, 1, 1);
-                        LocalDate endDate = LocalDate.of(2023, 12, 31);
+                for (int i = 0; i < 100; i++) {
+                        LocalDate startDate = LocalDate.of(2024, 1, 1);
+                        LocalDate endDate = LocalDate.of(2024, 6, 21);
 
                         long randomDays = new Random().nextLong(ChronoUnit.DAYS.between(startDate, endDate));
 
@@ -625,10 +596,21 @@ public class DatabaseInit implements ApplicationRunner {
                         tratamiento.setMascota(repoMascota.findById(mascotaId).get());
                         Long medicamentoId = (long) (Math.random() * 522);
                         tratamiento.setMedicamento(repoMedicamento.findById(medicamentoId).get());
+                        if (Math.random() > 0.2) {
+                                tratamiento.setMedicamentoAplicado(false);
+                        }
+                        else {
+                                tratamiento.setMedicamentoAplicado(true);
+                        }
                         repoTratamiento.save(tratamiento);
                 }
-                
-                
+
+                for (Mascota mascota : repoMascota.findAll()) {
+                        if (repoTratamiento.findByMascota(mascota).isEmpty()) {
+                                mascota.setEstado(repoEstadoMas.findByNombre("De baja"));
+                        }
+                }
+
         }
 
 }

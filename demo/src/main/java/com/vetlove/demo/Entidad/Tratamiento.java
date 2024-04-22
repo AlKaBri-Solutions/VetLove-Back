@@ -17,6 +17,7 @@ public class Tratamiento {
     Date fechaInicio;
     Date fechaFin;
     float costo;
+    boolean medicamentoAplicado;
 
     @JsonIgnore
     @ManyToOne
@@ -89,6 +90,14 @@ public class Tratamiento {
 
     public void setMedicamento(Medicamento medicamento) {
         this.medicamento = medicamento;
+    }
+
+    public boolean isMedicamentoAplicado() {
+        return medicamentoAplicado;
+    }
+
+    public void setMedicamentoAplicado(boolean medicamentoAplicado) {
+        this.medicamentoAplicado = medicamentoAplicado;
     }
 
     
