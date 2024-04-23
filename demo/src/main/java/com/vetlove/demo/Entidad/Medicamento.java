@@ -26,7 +26,6 @@ public class Medicamento {
     @OneToMany(mappedBy = "medicamento")
     List<Tratamiento> tratamientos = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToOne
     Enfermedad enfermedad;
 

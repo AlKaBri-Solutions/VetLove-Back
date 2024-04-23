@@ -2,8 +2,6 @@ package com.vetlove.demo.Entidad;
 
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,12 +15,11 @@ public class Tratamiento {
     Date fechaInicio;
     Date fechaFin;
     float costo;
+    boolean medicamentoAplicado;
 
-    @JsonIgnore
     @ManyToOne
     Mascota mascota;
     
-    @JsonIgnore
     @ManyToOne
     Medicamento medicamento;
     
@@ -89,6 +86,14 @@ public class Tratamiento {
 
     public void setMedicamento(Medicamento medicamento) {
         this.medicamento = medicamento;
+    }
+
+    public boolean isMedicamentoAplicado() {
+        return medicamentoAplicado;
+    }
+
+    public void setMedicamentoAplicado(boolean medicamentoAplicado) {
+        this.medicamentoAplicado = medicamentoAplicado;
     }
 
     
