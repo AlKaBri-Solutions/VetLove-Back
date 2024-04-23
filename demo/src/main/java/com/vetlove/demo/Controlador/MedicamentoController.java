@@ -36,6 +36,12 @@ public class MedicamentoController {
     public Medicamento getMedicamentoByNombre(@PathVariable String nombre) {
         return medicamentoServicio.getMedicamentoByNombre(nombre);
     }
+
+    //localhost:8090/medicamento/all
+    @GetMapping("/all")
+    public List<Medicamento> getAllVeterinarios(){
+        return medicamentoServicio.SearchAll();
+    }
     
 
     //Métodos POST
