@@ -2,8 +2,8 @@ package com.vetlove.demo.Servicio;
 
 import java.util.List;
 
-import org.hibernate.annotations.SecondaryRow;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 
 import com.vetlove.demo.Entidad.Tratamiento;
@@ -21,9 +21,32 @@ public class TratamientoServicio implements ITratamientoServicio{
     }
 
     @Override
-    public List<Tratamiento> SearchAll(){
-        return repoTratamiento.findAll();
+    public int countTratamientosActivos() {
+        List<Tratamiento> tratamientos = repoTratamiento.findAll();
+        int count = 0;
+        for (Tratamiento t : tratamientos) {
+            if (!t.isMedicamentoAplicado()) {
+                count++;
+            }
+        }
+        return count;
     }
 
+    @Override
+    public int countTratamientosRealizados() {
+        List<Tratamiento> tratamientos = repoTratamiento.findAll();
+        int count = 0;
+        for (Tratamiento t : tratamientos) {
+            if (t.isMedicamentoAplicado()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public List<Tratamiento> SearchAll() {
+        return repoTratamiento.findAll();
+    }
 
 }

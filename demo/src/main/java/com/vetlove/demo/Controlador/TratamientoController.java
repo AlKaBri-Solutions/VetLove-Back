@@ -31,13 +31,18 @@ public class TratamientoController {
         return servicioTratamiento.searchById(id);
     }
 
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+    @GetMapping("/countActivos") //Tratamientos activos: tratamientos que no tengan medicamento aplicado
+    public int countTratamientosActivos() {
+        return servicioTratamiento.countTratamientosActivos();
     }
     
+    @GetMapping("/countRealizados") //Tratamientos realizados: tratamientos que tengan medicamento aplicado
+    public int countTratamientosRealizados() {
+        return servicioTratamiento.countTratamientosRealizados();
+    }
+
     @GetMapping("/all")
-    public List<Tratamiento> getAllTratamientos(){
+    public List<Tratamiento> getAllTratamientos() {
         return servicioTratamiento.SearchAll();
     }
 
