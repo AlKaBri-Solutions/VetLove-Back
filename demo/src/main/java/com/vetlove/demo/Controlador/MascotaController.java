@@ -66,6 +66,10 @@ public class MascotaController {
         return mascotaServicio.SearchAllByVeterinarioId(id);
     }
     
+    @GetMapping("/countAll")
+    public int countAll() {
+        return mascotaServicio.SearchAll().size();
+    }
 
     //Métodos POST
     @PostMapping("/add")
