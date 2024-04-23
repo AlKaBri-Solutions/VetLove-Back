@@ -7,5 +7,5 @@ import com.vetlove.demo.Entidad.EstadoVet;
 
 @Repository
 public interface EstadoVetRepositorio extends JpaRepository<EstadoVet, Long>{
-    
+    public EstadoVet findByNombre(String nombre);
 }

@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.vetlove.demo.Entidad.Especialidad;
 
+
 @Repository
 public interface EspecialidadRepositorio extends JpaRepository<Especialidad, Long>{
-    
+    Especialidad findByNombre(String nombre);
 }
