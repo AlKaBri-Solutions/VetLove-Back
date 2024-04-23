@@ -377,15 +377,15 @@ public class DatabaseInit implements ApplicationRunner {
 
                 Mascota asociar = repoMascota.findById(1L).get();
                 asociar.setDueno(repoCliente.findById(2L).get());
-                asociar.setEstado(repoEstadoMas.findById(1L).get());
+                asociar.setEstado(repoEstadoMas.findById(2L).get());
                 repoMascota.save(asociar);
                 asociar = repoMascota.findById(2L).get();
                 asociar.setDueno(repoCliente.findById(2L).get());
-                asociar.setEstado(repoEstadoMas.findById(1L).get());
+                asociar.setEstado(repoEstadoMas.findById(2L).get());
                 repoMascota.save(asociar);
                 asociar = repoMascota.findById(3L).get();
                 asociar.setDueno(repoCliente.findById(1L).get());
-                asociar.setEstado(repoEstadoMas.findById(1L).get());
+                asociar.setEstado(repoEstadoMas.findById(2L).get());
                 repoMascota.save(asociar);
 
                 Long contadorCliente = 1L;
@@ -399,7 +399,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                                 if (cliente != null) {
                                         asociar1.setDueno(cliente);
-                                        asociar1.setEstado(repoEstadoMas.findById(1L).orElse(null));
+                                        asociar1.setEstado(repoEstadoMas.findById(2L).orElse(null));
 
                                         repoMascota.save(asociar1);
 
@@ -592,7 +592,9 @@ public class DatabaseInit implements ApplicationRunner {
                         tratamiento.setFechaInicio(dateInicio);
                         tratamiento.setFechaFin(dateFinal);
                         Long mascotaId = (long) (Math.random() * 100);
-                        tratamiento.setMascota(repoMascota.findById(mascotaId).get());
+                        Mascota mascota = repoMascota.findById(mascotaId).get();
+                        mascota.setEstado(repoEstadoMas.findByNombre("Ingresado"));
+                        tratamiento.setMascota(mascota);
                         Long medicamentoId = (long) (Math.random() * 522);
                         Medicamento medicamento = repoMedicamento.findById(medicamentoId).get();
                         tratamiento.setMedicamento(medicamento);
@@ -604,12 +606,6 @@ public class DatabaseInit implements ApplicationRunner {
                                 tratamiento.setMedicamentoAplicado(true);
                         }
                         repoTratamiento.save(tratamiento);
-                }
-
-                for (Mascota mascota : repoMascota.findAll()) {
-                        if (repoTratamiento.findByMascota(mascota).isEmpty()) {
-                                mascota.setEstado(repoEstadoMas.findByNombre("De baja"));
-                        }
                 }
 
         }
