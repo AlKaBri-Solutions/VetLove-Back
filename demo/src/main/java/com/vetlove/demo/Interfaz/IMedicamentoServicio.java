@@ -10,4 +10,5 @@ public interface IMedicamentoServicio {
     public int cambiarMedicamento(Tratamiento tratamiento);
     public Medicamento getMedicamentoByNombre(String nombre);
     public List<Medicamento> getMedicamentosSimilares(Medicamento medicamento);
+    public List<Medicamento> SearchAll();
 }
