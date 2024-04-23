@@ -18,6 +18,7 @@ import com.vetlove.demo.Interfaz.IMedicamentoServicio;
 
 
 
+
 @RestController
 @RequestMapping("/medicamento")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,6 +37,12 @@ public class MedicamentoController {
     public Medicamento getMedicamentoByNombre(@PathVariable String nombre) {
         return medicamentoServicio.getMedicamentoByNombre(nombre);
     }
+
+    @GetMapping("/all")
+    public List<Medicamento> getAllVeterinarios() {
+        return medicamentoServicio.SearchAll();
+    }
+    
     
 
     //Métodos POST

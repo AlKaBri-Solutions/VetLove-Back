@@ -69,4 +69,9 @@ public class MedicamentoServicio implements IMedicamentoServicio {
         }
     }
 
+    @Override
+    public List<Medicamento> SearchAll() {
+        return repoMedicamento.findAll();
+    }
+
 }

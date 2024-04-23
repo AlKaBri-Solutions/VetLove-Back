@@ -19,28 +19,33 @@ public class TratamientoServicio implements ITratamientoServicio{
         return repoTratamiento.findById(id).orElse(null);
     }
 
-    @Override
-    public int countTratamientosActivos() {
-        List<Tratamiento> tratamientos = repoTratamiento.findAll();
-        int count = 0;
-        for (Tratamiento t : tratamientos) {
-            if (!t.isMedicamentoAplicado()) {
-                count++;
-            }
-        }
-        return count;
-    }
+    // @Override
+    // public int countTratamientosActivos() {
+    //     List<Tratamiento> tratamientos = repoTratamiento.findAll();
+    //     int count = 0;
+    //     for (Tratamiento t : tratamientos) {
+    //         if (!t.isMedicamentoAplicado()) {
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
+
+    // @Override
+    // public int countTratamientosRealizados() {
+    //     List<Tratamiento> tratamientos = repoTratamiento.findAll();
+    //     int count = 0;
+    //     for (Tratamiento t : tratamientos) {
+    //         if (t.isMedicamentoAplicado()) {
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
 
     @Override
-    public int countTratamientosRealizados() {
-        List<Tratamiento> tratamientos = repoTratamiento.findAll();
-        int count = 0;
-        for (Tratamiento t : tratamientos) {
-            if (t.isMedicamentoAplicado()) {
-                count++;
-            }
-        }
-        return count;
+    public List<Tratamiento> SearchAll() {
+        return repoTratamiento.findAll();
     }
 
 }
