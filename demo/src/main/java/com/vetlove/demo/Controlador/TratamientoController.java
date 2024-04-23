@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Tratamiento;
-import com.vetlove.demo.Repositorio.TratamientoRepositorio;
+import com.vetlove.demo.Interfaz.ITratamientoServicio;
 
 
 
@@ -19,16 +19,20 @@ import com.vetlove.demo.Repositorio.TratamientoRepositorio;
 @RequestMapping("/tratamiento")
 @CrossOrigin(origins = "http://localhost:4200") /////////////////////////
 public class TratamientoController {
-    //Prueba
-    @Autowired //Prueba
-    private TratamientoRepositorio repoTratamiento; //Prueba
-    //Prueba
+    @Autowired
+    private ITratamientoServicio servicioTratamiento;
 
     //Métodos GET
     //http://localhost:8090/mascota/all
     @GetMapping("/find")
     public Tratamiento getTratamientoById(@RequestParam Long id) {
-        return repoTratamiento.findById(id).get();
+        return servicioTratamiento.searchById(id);
     }
+
+    @GetMapping("path")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
 
 }
