@@ -14,14 +14,21 @@ public interface MedicamentoRepositorio extends JpaRepository<Medicamento, Long>
     public Medicamento findByNombre(String nombre);
     public List<Medicamento> findByEnfermedad(Enfermedad enfermedad);
 
-    @Query(value="SELECT SUM(COSTO * VENDIDAS)\r\n" + //
+    @Query(value="SELECT SUM(PRECIO * VENDIDAS)\r\n" + //
     "FROM MEDICAMENTO\r\n",
     nativeQuery = true)
+    //SELECT SUM(PRECIO * VENDIDAS) FROM MEDICAMENTO
+    public double findVentasTotales();
+
+    @Query(value = "SELECT SUM(COSTO * VENDIDAS) - SUM(COSTO * UNIDADES)\r\n" + //
+    "FROM MEDICAMENTO", nativeQuery = true)
+    //SELECT SUM(COSTO * VENDIDAS) - SUM(COSTO * UNIDADES) FROM MEDICAMENTO
     public double findGananciasTotales();
 
     @Query(value="SELECT TOP 3 *\r\n" + //
         "FROM MEDICAMENTO\r\n" + //
         "ORDER BY VENDIDAS DESC\r\n"
     , nativeQuery = true)
+    //SELECT TOP 3 * FROM MEDICAMENTO ORDER BY VENDIDAS DESC
     public List<Medicamento> findTopVendidos();
 }

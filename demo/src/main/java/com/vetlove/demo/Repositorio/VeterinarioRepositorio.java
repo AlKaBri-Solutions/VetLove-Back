@@ -21,6 +21,6 @@ public interface VeterinarioRepositorio extends JpaRepository<Veterinario, Long>
     "FROM VETERINARIO \r\n" + //
     "WHERE ESTADO_ID_ESTADO = 2 \r\n"
     , nativeQuery = true)
-    int findCountVeterinariosInctivos();
+    int findCountVeterinariosInactivos();
     //SELECT COUNT(*) FROM VETERINARIO WHERE ESTADO_ID_ESTADO = 2
 }

@@ -66,10 +66,16 @@ public class veterinarioController {
         return veterinarioServicio.SearchByCedula(cedula);
     }
 
-    @GetMapping("/countAll")
-    public int countAll() {
-        return veterinarioServicio.SearchAll().size();
+    @GetMapping("/countVeterinariosActivos")
+    public int findCountVeterinariosActivos() {
+        return veterinarioServicio.findCountVeterinariosActivos();
     }
+
+    @GetMapping("/countVeterinariosInctivos")
+    public int findCountVeterinariosInactivos() {
+        return veterinarioServicio.findCountVeterinariosInactivos();
+    }
+    
     
     //Métodos POST
     @PostMapping("/add")

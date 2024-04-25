@@ -19,6 +19,9 @@ import com.vetlove.demo.Interfaz.IMedicamentoServicio;
 
 
 
+
+
+
 @RestController
 @RequestMapping("/medicamento")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -41,6 +44,22 @@ public class MedicamentoController {
     @GetMapping("/all")
     public List<Medicamento> getAllVeterinarios() {
         return medicamentoServicio.SearchAll();
+    }
+    
+    @GetMapping("/getVentasTotales")
+    public double getVentasTotales() {
+        return medicamentoServicio.findVentasTotales();
+    }
+
+    @GetMapping("getGananciasTotales")
+    public double getGananciasTotales() {
+        return medicamentoServicio.findGananciasTotales();
+    }
+    
+
+    @GetMapping("/getTopVendidos")
+    public List<Medicamento> getTopVendidos() {
+        return medicamentoServicio.findTopVendidos();
     }
     
     

@@ -74,4 +74,19 @@ public class MedicamentoServicio implements IMedicamentoServicio {
         return repoMedicamento.findAll();
     }
 
+	@Override
+	public double findVentasTotales() {
+		return repoMedicamento.findVentasTotales();
+	}
+
+    @Override
+	public double findGananciasTotales() {
+		return repoMedicamento.findGananciasTotales();
+	}
+
+	@Override
+	public List<Medicamento> findTopVendidos() {
+		return repoMedicamento.findTopVendidos();
+	}
+
 }

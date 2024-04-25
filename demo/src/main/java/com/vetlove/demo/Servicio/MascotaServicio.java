@@ -63,4 +63,14 @@ public class MascotaServicio implements IMascotaServicio{
         repoMascota.save(mascota);
     }
 
+	@Override
+	public int countAll() {
+		return repoMascota.findCountMascotas();
+	}
+
+	@Override
+	public int countActivas() {
+		return repoMascota.findCountMascotasActivas();
+	}
+
 }
