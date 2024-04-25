@@ -9,9 +9,7 @@ import jakarta.persistence.SqlResultSetMapping;
             targetClass = TratamientosXEnfermedadLMConsulta.class, columns = {
                 @ColumnResult(name = "cantidad", type = String.class),
                 @ColumnResult(name = "nombre", type = Integer.class),
-
         }),
-        
 })
 public class CustomResultSetMappings {
     // This class can remain empty, as it serves only to define the mapping
