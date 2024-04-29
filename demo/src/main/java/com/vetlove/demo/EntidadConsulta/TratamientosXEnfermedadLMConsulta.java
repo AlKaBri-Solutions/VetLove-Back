@@ -6,22 +6,13 @@ import jakarta.persistence.Id;
 @Entity
 public class TratamientosXEnfermedadLMConsulta {
 	@Id
-	private Integer id;
-
+	private String nombre;
+	private Integer cantidad;
+	
+	
 	public TratamientosXEnfermedadLMConsulta() {
 
     }
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	private Integer cantidad;
-	private String nombre;
 
 	public TratamientosXEnfermedadLMConsulta(Integer cantidad, String nombre) {
 		this.cantidad = cantidad;

@@ -9,11 +9,15 @@ import com.vetlove.demo.Entidad.Tratamiento;
 import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
+import com.vetlove.demo.Repositorio.TratamientosXEnfermedadLMConsultaRepositorio;
 
 @Service
 public class TratamientoServicio implements ITratamientoServicio{
     @Autowired
     private TratamientoRepositorio repoTratamiento;
+
+    @Autowired
+    private TratamientosXEnfermedadLMConsultaRepositorio repoConsulta;
 
     @Override
     public Tratamiento searchById(Long id) {
@@ -56,7 +60,7 @@ public class TratamientoServicio implements ITratamientoServicio{
 
     @Override
     public List<TratamientosXEnfermedadLMConsulta> tratamientosXEnfermedadLastMonth() {
-        return repoTratamiento.findTratameintosXEnfermedadLastMonth();
+        return repoConsulta.findTratameintosXEnfermedadLastMonth();
     }
 
 }

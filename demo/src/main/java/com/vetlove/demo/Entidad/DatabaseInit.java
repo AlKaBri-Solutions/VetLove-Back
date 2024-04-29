@@ -591,11 +591,10 @@ public class DatabaseInit implements ApplicationRunner {
                         Tratamiento tratamiento = new Tratamiento();
                         tratamiento.setFechaInicio(dateInicio);
                         tratamiento.setFechaFin(dateFinal);
-                        Long mascotaId = (long) (Math.random() * 100);
-                        Mascota mascota = repoMascota.findById(mascotaId).get();
+                        Mascota mascota = repoMascota.findById((long) i + 1).get();
                         mascota.setEstado(repoEstadoMas.findByNombre("Ingresado"));
                         tratamiento.setMascota(mascota);
-                        Long medicamentoId = (long) (Math.random() * 522);
+                        Long medicamentoId = (long) i*3 + 1;
                         Medicamento medicamento = repoMedicamento.findById(medicamentoId).get();
                         tratamiento.setMedicamento(medicamento);
                         tratamiento.setCosto((float) medicamento.getPrecio());
