@@ -68,5 +68,13 @@ public class VeterinarioServicio implements IVeterinarioServicio{
         repoVeterinario.save(veterinario);
     }
 
+	@Override
+	public int findCountVeterinariosActivos() {
+		return repoVeterinario.findCountVeterinariosActivos();
+	}
 
+    @Override
+	public int findCountVeterinariosInactivos() {
+		return repoVeterinario.findCountVeterinariosInactivos();
+	}
 }

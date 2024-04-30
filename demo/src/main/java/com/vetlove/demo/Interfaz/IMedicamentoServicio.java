@@ -11,4 +11,7 @@ public interface IMedicamentoServicio {
     public Medicamento getMedicamentoByNombre(String nombre);
     public List<Medicamento> getMedicamentosSimilares(Medicamento medicamento);
     public List<Medicamento> SearchAll();
+    public double findVentasTotales();
+    public double findGananciasTotales();
+    public List<Medicamento> findTopVendidos();
 }

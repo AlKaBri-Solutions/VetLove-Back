@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Tratamiento;
+import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
 
 
@@ -30,19 +31,29 @@ public class TratamientoController {
         return servicioTratamiento.searchById(id);
     }
 
-    // @GetMapping("/countActivos") //Tratamientos activos: tratamientos que no tengan medicamento aplicado
-    // public int countTratamientosActivos() {
-    //     return servicioTratamiento.countTratamientosActivos();
-    // }
+    @GetMapping("/countActivos") //Tratamientos activos: tratamientos que no tengan medicamento aplicado
+    public int countTratamientosActivos() {
+        return servicioTratamiento.countTratamientosActivos();
+    }
     
-    // @GetMapping("/countRealizados") //Tratamientos realizados: tratamientos que tengan medicamento aplicado
-    // public int countTratamientosRealizados() {
-    //     return servicioTratamiento.countTratamientosRealizados();
-    // }
+    @GetMapping("/countRealizados") //Tratamientos realizados: tratamientos que tengan medicamento aplicado
+    public int countTratamientosRealizados() {
+        return servicioTratamiento.countTratamientosRealizados();
+    }
 
     @GetMapping("/all")
     public List<Tratamiento> getAllTratamientos() {
         return servicioTratamiento.SearchAll();
+    }
+
+    @GetMapping("/countTratamientosLastMonth")
+    public int getCountTratamientosLastMonth() {
+        return servicioTratamiento.getCountTratamientosLastMonth();
+    }
+    
+    @GetMapping("/countTratameintosXEnfermedadLastMonth")
+    public List<TratamientosXEnfermedadLMConsulta> getTratamientosXEnfermedadLMConsulta() {
+        return servicioTratamiento.tratamientosXEnfermedadLastMonth();
     }
     
 

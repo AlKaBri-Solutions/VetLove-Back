@@ -14,4 +14,6 @@ public interface IMascotaServicio {
     public void deleteMascota(Long id);
     public void updateMascota(Mascota mascota);
     public void undeleteMascota(Long id);
+    public int countAll();
+    public int countActivas();
 }

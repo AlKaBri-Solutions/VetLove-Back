@@ -26,4 +26,16 @@ public interface MascotaRepositorio extends JpaRepository<Mascota, Long> {
                 "WHERE VC.vId= :id"
             , nativeQuery = true)
     List<Mascota> findByVeterinarioId(@Param("id") Long id);
+
+    @Query(value = "SELECT COUNT(*)\r\n" + //
+                    "FROM MASCOTA\r\n"
+            , nativeQuery = true)
+    int findCountMascotas();
+
+    @Query(value = "SELECT COUNT(*) \r\n" + //
+    "FROM MASCOTA \r\n" + //
+    "WHERE ESTADO_ID = 1 \r\n"
+    , nativeQuery = true)
+    int findCountMascotasActivas();
+    //SELECT COUNT(*) FROM MASCOTA WHERE ESTADO_ID = 1
 }

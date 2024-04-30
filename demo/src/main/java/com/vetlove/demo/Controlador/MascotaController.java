@@ -68,8 +68,14 @@ public class MascotaController {
     
     @GetMapping("/countAll")
     public int countAll() {
-        return mascotaServicio.SearchAll().size();
+        return mascotaServicio.countAll();
     }
+
+    @GetMapping("/countActivas")
+    public int countActivas() {
+        return mascotaServicio.countActivas();
+    }
+    
 
     //Métodos POST
     @PostMapping("/add")

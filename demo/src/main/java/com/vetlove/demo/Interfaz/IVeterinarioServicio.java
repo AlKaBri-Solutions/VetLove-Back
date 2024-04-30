@@ -13,4 +13,6 @@ public interface IVeterinarioServicio {
     public Long validateLogin(String cedula, String password);
     public Veterinario SearchByCedula(String cedula);
     public void undeleteVeterinario(Long id);
+    public int findCountVeterinariosActivos();
+    public int findCountVeterinariosInactivos();
 }
