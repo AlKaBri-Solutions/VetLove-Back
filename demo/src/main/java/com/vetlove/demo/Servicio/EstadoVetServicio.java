@@ -1,5 +1,7 @@
 package com.vetlove.demo.Servicio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class EstadoVetServicio implements IEstadoVetServicio{
     @Override
     public EstadoVet SearchByName(String name) {
         return repoEstadoVet.findByNombre(name);
+    }
+
+    @Override
+    public List<EstadoVet> SearchAll() {
+        return repoEstadoVet.findAll();
     }
     
 }
