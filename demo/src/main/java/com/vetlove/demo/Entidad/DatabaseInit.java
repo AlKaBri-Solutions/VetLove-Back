@@ -350,6 +350,7 @@ public class DatabaseInit implements ApplicationRunner {
                 repoEstadoVet.save(new EstadoVet("Activo"));
                 repoEstadoVet.save(new EstadoVet("Inactivo"));
                 repoEstadoVet.save(new EstadoVet("Vacaciones"));
+                repoEstadoVet.save(new EstadoVet("Incapacitado"));
 
                 Veterinario asociarVet = repoVeterinario.findById(1L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(1L).get());
@@ -573,6 +574,7 @@ public class DatabaseInit implements ApplicationRunner {
                 // Crear Tratamientos en la BD
                 for (int i = 0; i < 100; i++) {
                         LocalDate startDate = LocalDate.of(2024, 1, 1);
+                        
                         LocalDate endDate = LocalDate.of(2024, 6, 21);
 
                         long randomDays = new Random().nextLong(ChronoUnit.DAYS.between(startDate, endDate));
@@ -581,7 +583,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                         long randomDays2 = new Random().nextLong(ChronoUnit.DAYS.between(randomDate, endDate));
 
-                        LocalDate randomDate2 = startDate.plusDays(randomDays2);
+                        LocalDate randomDate2 = randomDate.plusDays(randomDays2);
 
                         Date dateInicio = new java.sql.Date(
                                         randomDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());

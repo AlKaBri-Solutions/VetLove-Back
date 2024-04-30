@@ -31,6 +31,12 @@ public class TratamientoController {
         return servicioTratamiento.searchById(id);
     }
 
+    @GetMapping("/findMascota")
+    public List<Tratamiento> getTratamientoByMascotaId(@RequestParam Long id) {
+        return servicioTratamiento.SearchAllByMascotaId(id);
+    }
+    
+
     @GetMapping("/countActivos") //Tratamientos activos: tratamientos que no tengan medicamento aplicado
     public int countTratamientosActivos() {
         return servicioTratamiento.countTratamientosActivos();

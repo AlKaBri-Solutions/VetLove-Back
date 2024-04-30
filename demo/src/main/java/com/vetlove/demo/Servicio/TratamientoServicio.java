@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vetlove.demo.Entidad.Mascota;
 import com.vetlove.demo.Entidad.Tratamiento;
 import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
+import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
 import com.vetlove.demo.Repositorio.TratamientosXEnfermedadLMConsultaRepositorio;
 
@@ -18,6 +20,9 @@ public class TratamientoServicio implements ITratamientoServicio{
 
     @Autowired
     private TratamientosXEnfermedadLMConsultaRepositorio repoConsulta;
+
+    @Autowired
+    private MascotaRepositorio repoMascota;
 
     @Override
     public Tratamiento searchById(Long id) {
@@ -61,6 +66,12 @@ public class TratamientoServicio implements ITratamientoServicio{
     @Override
     public List<TratamientosXEnfermedadLMConsulta> tratamientosXEnfermedadLastMonth() {
         return repoConsulta.findTratameintosXEnfermedadLastMonth();
+    }
+
+    @Override
+    public List<Tratamiento> SearchAllByMascotaId(Long id) {
+        Mascota mascota = repoMascota.findById(id).orElse(null);
+        return repoTratamiento.findByMascota(mascota);
     }
 
 }
