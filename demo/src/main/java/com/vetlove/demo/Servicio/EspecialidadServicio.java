@@ -1,5 +1,7 @@
 package com.vetlove.demo.Servicio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class EspecialidadServicio implements IEspecialidadServicio{
     @Override
     public Especialidad findByNombre(String nombre) {
         return especialidadRepositorio.findByNombre(nombre);
+    }
+
+    @Override
+    public List<Especialidad> findAll() {
+        return especialidadRepositorio.findAll();
     }
     
 }

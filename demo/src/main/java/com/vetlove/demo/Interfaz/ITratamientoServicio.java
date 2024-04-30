@@ -12,4 +12,5 @@ public interface ITratamientoServicio {
     public List<Tratamiento> SearchAll();
     public int getCountTratamientosLastMonth();
     public List<TratamientosXEnfermedadLMConsulta> tratamientosXEnfermedadLastMonth();
+    public List<Tratamiento> SearchAllByMascotaId(Long id);
 }
