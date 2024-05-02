@@ -11,6 +11,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
 import com.vetlove.demo.Repositorio.AdministradorRepositorio;
@@ -29,6 +30,7 @@ import jakarta.transaction.Transactional;
 
 @Controller
 @Transactional
+@Profile("default")
 public class DatabaseInit implements ApplicationRunner {
 
         @Autowired

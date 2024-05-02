@@ -107,8 +107,8 @@ public class TratamientoServicio implements ITratamientoServicio {
 
         LocalDate fechaFin = fechaInicio.plusDays(tratamiento.getDuracion()); // Add the specified number of days
         t.setFechaFin(java.sql.Date.valueOf(fechaFin));
-
-        Medicamento medicamento = repoMedicamento.findByEnfermedad(tratamiento.getEnfermedad()).get(0);
+        List<Medicamento> medicamentos = repoMedicamento.findByEnfermedad(tratamiento.getEnfermedad());
+        Medicamento medicamento = medicamentos.get(0);
         t.setMedicamento(medicamento);
         t.setMedicamentoAplicado(false);
         t.setCosto(medicamento.getPrecio());
