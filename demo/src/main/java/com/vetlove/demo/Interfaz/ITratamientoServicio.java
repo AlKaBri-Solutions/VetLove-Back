@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vetlove.demo.Entidad.Tratamiento;
 import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
+import com.vetlove.demo.EntidadRequest.AddTratamientoRequest;
 
 public interface ITratamientoServicio {
     public Tratamiento searchById(Long id);
@@ -13,4 +14,6 @@ public interface ITratamientoServicio {
     public int getCountTratamientosLastMonth();
     public List<TratamientosXEnfermedadLMConsulta> tratamientosXEnfermedadLastMonth();
     public List<Tratamiento> SearchAllByMascotaId(Long id);
+    public List<Tratamiento> SearchActivosByVeterinarioId(Long id);
+    public int save(AddTratamientoRequest tratamiento);
 }

@@ -609,6 +609,9 @@ public class DatabaseInit implements ApplicationRunner {
                         }
                         else {
                                 tratamiento.setMedicamentoAplicado(true);
+                                mascota.setEstado(repoEstadoMas.findByNombre("De baja"));
+                                tratamiento.setMascota(mascota);
+                                repoMascota.save(mascota);
                         }
                         repoTratamiento.save(tratamiento);
                 }

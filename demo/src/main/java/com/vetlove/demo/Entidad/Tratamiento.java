@@ -6,13 +6,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Tratamiento {
     @Id
     @GeneratedValue
     Long idTratamiento;
+    @Temporal(TemporalType.DATE)
     Date fechaInicio;
+    @Temporal(TemporalType.DATE)
     Date fechaFin;
     float costo;
     boolean medicamentoAplicado;
