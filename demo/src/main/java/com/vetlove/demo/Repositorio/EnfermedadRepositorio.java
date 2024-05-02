@@ -7,5 +7,5 @@ import com.vetlove.demo.Entidad.Enfermedad;
 
 @Repository
 public interface EnfermedadRepositorio extends JpaRepository<Enfermedad, Long>{
-    
+    public Enfermedad findByNombre(String nombre);
 }

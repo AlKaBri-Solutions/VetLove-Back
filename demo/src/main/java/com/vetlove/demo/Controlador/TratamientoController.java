@@ -5,18 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Tratamiento;
 import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
+import com.vetlove.demo.EntidadRequest.AddTratamientoRequest;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
-
-
-
-
-
 
 @RestController
 @RequestMapping("/tratamiento")
@@ -30,6 +28,12 @@ public class TratamientoController {
     public Tratamiento getTratamientoById(@RequestParam Long id) {
         return servicioTratamiento.searchById(id);
     }
+
+    @GetMapping("/findVeterinario")
+    public List<Tratamiento> getTratamientoActivoByVeterinarioId(@RequestParam Long id) {
+        return servicioTratamiento.SearchActivosByVeterinarioId(id);
+    }
+    
 
     @GetMapping("/findMascota")
     public List<Tratamiento> getTratamientoByMascotaId(@RequestParam Long id) {
@@ -60,6 +64,12 @@ public class TratamientoController {
     @GetMapping("/countTratameintosXEnfermedadLastMonth")
     public List<TratamientosXEnfermedadLMConsulta> getTratamientosXEnfermedadLMConsulta() {
         return servicioTratamiento.tratamientosXEnfermedadLastMonth();
+    }
+    
+    //Métodos POST
+    @PostMapping("/add")
+    public int addTratamiento(@RequestBody AddTratamientoRequest tratamiento) {
+        return servicioTratamiento.save(tratamiento);
     }
     
 

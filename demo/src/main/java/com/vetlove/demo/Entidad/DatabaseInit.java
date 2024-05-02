@@ -13,6 +13,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 
+import com.vetlove.demo.Repositorio.AdministradorRepositorio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
 import com.vetlove.demo.Repositorio.EnfermedadRepositorio;
 import com.vetlove.demo.Repositorio.EspecialidadRepositorio;
@@ -59,6 +60,9 @@ public class DatabaseInit implements ApplicationRunner {
 
         @Autowired
         EstadoVetRepositorio repoEstadoVet;
+
+        @Autowired
+        AdministradorRepositorio repoAdministrador;
 
         @Override
         public void run(ApplicationArguments args) throws Exception {
@@ -605,10 +609,16 @@ public class DatabaseInit implements ApplicationRunner {
                         }
                         else {
                                 tratamiento.setMedicamentoAplicado(true);
+                                mascota.setEstado(repoEstadoMas.findByNombre("De baja"));
+                                tratamiento.setMascota(mascota);
+                                repoMascota.save(mascota);
                         }
                         repoTratamiento.save(tratamiento);
                 }
-
+                
+                Administrador admin = new Administrador("1000586123", "super-secret-password");
+                repoAdministrador.save(admin);
         }
+
 
 }
