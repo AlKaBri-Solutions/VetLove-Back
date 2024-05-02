@@ -7,6 +7,15 @@ public class AddTratamientoRequest {
     private String cedula;
     private String nombre;
     private int duracion;
+
+    
+
+    public AddTratamientoRequest(Enfermedad enfermedad, String cedula, String nombre, int duracion) {
+        this.enfermedad = enfermedad;
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.duracion = duracion;
+    }
     public Enfermedad getEnfermedad() {
         return enfermedad;
     }

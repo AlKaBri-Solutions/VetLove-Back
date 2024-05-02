@@ -31,10 +31,11 @@ public class Tratamiento {
         
     }
 
-    public Tratamiento(Date fechaInicio, Date fechaFin, float costo) {
+    public Tratamiento(Date fechaInicio, Date fechaFin, float costo, boolean medicamentoAplicado) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.costo = costo;
+        this.medicamentoAplicado = medicamentoAplicado;
     }
 
     public Tratamiento(Long idTratamiento, Date fechaInicio, Date fechaFin, float costo) {
