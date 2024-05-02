@@ -86,6 +86,14 @@ public class TratamientoServicioTestNaive {
 
     @BeforeEach
     public void init() throws FileNotFoundException, IOException {
+        repoMascota.save(new Mascota("Iris", "Husky", 3, 20000,
+                                "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
+                repoMascota.save(new Mascota("Max", "Samoyero", 5, 40000,
+                                "https://images.hola.com/imagenes/mascotas/20200811173399/-de-perro-grandes-samoyedo/0-854-717/samoyedo-m.jpg?tx=w_680"));
+                repoMascota.save(new Mascota("Yogui", "Golden", 4, 30000,
+                                "https://www.hepper.com/wp-content/uploads/2021/11/golden-retriever_Shutterstock.jpg"));
+                repoMascota.save(new Mascota("Max", "Labrador", 5, 2500,
+                                "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/temas/caracteristicas-perro-labrador.jpg"));
         repoCliente.save(new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327"));
         repoCliente.save(new Cliente("1001572832", "Laura Karara", "karara02@gmail.com", "3022678421"));
 
