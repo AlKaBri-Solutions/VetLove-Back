@@ -32,16 +32,28 @@ public class ClienteController {
     private IVeterinarioServicio veterinarioServicio;
 
     //Métodos GET
-    @GetMapping("/veterinario")
+
+
+    //http://localhost:8090/cliente/all
+    @GetMapping("/all")
+     public List<Cliente> getClientes (){
+        return clienteServicio.SearchAll(); 
+     }
+
+     //http://localhost:8090/cliente/veterinario?id=1
+     @GetMapping("/veterinario")
     public List<Cliente> getClienteByVeterinarioId(@RequestParam Long id) {
         return clienteServicio.SearchAllByVeterinario(veterinarioServicio.SearchById(id));
     }
     
+    //http://localhost:8090/cliente/find?id=1
     @GetMapping("find")
     public Cliente getClienteById(@RequestParam Long id) {
         return clienteServicio.SearchById(id);
     }
 
+
+    //http://localhost:8090/cliente/findCedula?cedula=1125248041
     @GetMapping("/findCedula")
     public Cliente getClienteByCedula(@RequestParam String cedula) {
         return clienteServicio.SearchByCedula(cedula);
@@ -49,6 +61,7 @@ public class ClienteController {
     
     
     //Métodos POST
+    //http://localhost:8090/cliente/add
     @PostMapping("/add")
     public void addCliente(@RequestBody AddClienteRequest params) {
         
@@ -59,6 +72,7 @@ public class ClienteController {
     }
     
     //Métodos PUT
+    //http://localhost:8090/cliente/update
     @PutMapping("/update")
     public void updataeCliente(@RequestBody AddClienteRequest params) {
         Veterinario veterinario = clienteServicio.SearchById(Long.parseLong(params.getId())).getVeterinario();
