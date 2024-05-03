@@ -72,6 +72,7 @@ public class ClienteController {
     
     //Métodos POST
     //http://localhost:8090/cliente/add
+    //http://localhost:8090/cliente/add
     @PostMapping("/add")
     public ResponseEntity<String> addCliente(@RequestBody AddClienteRequest params) {
         
@@ -84,6 +85,7 @@ public class ClienteController {
     }
     
     //Métodos PUT
+    //http://localhost:8090/cliente/update
     //http://localhost:8090/cliente/update
     @PutMapping("/update")
     public ResponseEntity<String> updataeCliente(@RequestBody AddClienteRequest params) {
