@@ -131,7 +131,7 @@ public class TratamientoServicioTestMock {
 
         //Act
         
-        int count = servicioTratamiento.countTratamientosActivos();
+        int count = servicioTratamiento.countTratamientosRealizados();
 
         //Arrange
 
