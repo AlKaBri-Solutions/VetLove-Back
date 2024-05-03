@@ -1,8 +1,6 @@
 package com.vetlove.demo.Servicio;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -184,69 +182,41 @@ public class TratamientoServicioTestNaive {
         enfermedad10.setPrioridad(repoPrioridad.findById(2L).orElse(null));
         repoEnfermedad.save(enfermedad10);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(
-                "./demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
-            String line = br.readLine();
-            line = br.readLine();
-
-            while ((line = br.readLine()) != null) {
-                Medicamento medicamento = new Medicamento();
-                String[] values = line.split(";");
-                medicamento.setNombre(values[0]);
-                medicamento.setPrecio(Float.parseFloat(values[1].substring(1)));
-                medicamento.setCosto(Float.parseFloat(values[2].substring(1)));
-                medicamento.setUnidades(Integer.parseInt(values[3]));
-                medicamento.setVendidas(Integer.parseInt(values[4]));
-                int randomNumber = (int) (Math.random() * 11);
-                switch (randomNumber) {
-                    case 0:
-                        medicamento.setEnfermedad(enfermedad);
-                        break;
-
-                    case 1:
-                        medicamento.setEnfermedad(enfermedad1);
-                        break;
-
-                    case 2:
-                        medicamento.setEnfermedad(enfermedad2);
-                        break;
-
-                    case 3:
-                        medicamento.setEnfermedad(enfermedad3);
-                        break;
-
-                    case 4:
-                        medicamento.setEnfermedad(enfermedad4);
-                        break;
-
-                    case 5:
-                        medicamento.setEnfermedad(enfermedad5);
-                        break;
-
-                    case 6:
-                        medicamento.setEnfermedad(enfermedad6);
-                        break;
-
-                    case 7:
-                        medicamento.setEnfermedad(enfermedad7);
-                        break;
-
-                    case 8:
-                        medicamento.setEnfermedad(enfermedad8);
-                        break;
-
-                    case 9:
-                        medicamento.setEnfermedad(enfermedad9);
-                        break;
-
-                    default:
-                        medicamento.setEnfermedad(enfermedad10);
-                        break;
-                }
-
-                repoMedicamento.save(medicamento);
-            }
-        }
+        Medicamento medicamento1 = new Medicamento(50, 25, 100, 0);
+        medicamento1.setNombre("Alkagd");
+        medicamento1.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento1);
+        Medicamento medicamento2 = new Medicamento(50, 25, 100, 0);
+        medicamento2.setNombre("Blkauhhgsd");
+        medicamento2.setEnfermedad(enfermedad2);
+        repoMedicamento.save(medicamento2);
+        Medicamento medicamento3 = new Medicamento(50, 25, 100, 0);
+        medicamento3.setNombre("Cshgdfk");
+        medicamento3.setEnfermedad(enfermedad3);
+        repoMedicamento.save(medicamento3);
+        Medicamento medicamento4 = new Medicamento(50, 25, 100, 0);
+        medicamento4.setNombre("Diigewkjlb");
+        medicamento4.setEnfermedad(enfermedad4);
+        repoMedicamento.save(medicamento4);
+        Medicamento medicamento5 = new Medicamento(50, 25, 100, 0);
+        medicamento5.setNombre("Ehgsdhfi");
+        medicamento5.setEnfermedad(enfermedad5);
+        Medicamento medicamento6 = new Medicamento(50, 25, 100, 0);
+        medicamento6.setNombre("Fluisbgfd");
+        medicamento6.setEnfermedad(enfermedad6);
+        Medicamento medicamento7 = new Medicamento(50, 25, 100, 0);
+        medicamento7.setNombre("Guoishfdg");
+        medicamento7.setEnfermedad(enfermedad7);
+        Medicamento medicamento8 = new Medicamento(50, 25, 100, 0);
+        medicamento8.setNombre("Hiogsdfj");
+        medicamento8.setEnfermedad(enfermedad8);
+        Medicamento medicamento9 = new Medicamento(50, 25, 100, 0);
+        medicamento9.setNombre("Ioibdszfhdsbk");
+        medicamento9.setEnfermedad(enfermedad9);
+        Medicamento medicamento10 = new Medicamento(50, 25, 100, 0);
+        medicamento10.setNombre("Alkagd");
+        medicamento1.setEnfermedad(enfermedad1);
+        
 
         for (int i = 0; i < 4; i++) {
                         LocalDate startDate = LocalDate.of(2024, 1, 1);
