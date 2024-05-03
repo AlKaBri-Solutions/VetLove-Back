@@ -37,8 +37,8 @@ public class ClienteServicio implements IClienteServicio{
     }
 
     @Override
-    public void save(Cliente cliente) {
-        repoCliente.save(cliente);
+    public Cliente save(Cliente cliente) {
+        return repoCliente.save(cliente);
     }
     
 
@@ -48,8 +48,8 @@ public class ClienteServicio implements IClienteServicio{
     }
 
     @Override
-    public void updateCliente(Cliente cliente) {
-        repoCliente.save(cliente);
+    public Cliente updateCliente(Cliente cliente) {
+        return repoCliente.save(cliente);
     }
 
     @Override

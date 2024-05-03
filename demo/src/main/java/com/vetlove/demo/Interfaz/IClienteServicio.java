@@ -11,7 +11,7 @@ public interface IClienteServicio {
     public List<Cliente> SearchAllByVeterinario(Veterinario veterinario);
     public Cliente SearchByCedula(String cedula);
     public Long validateLogin(String cedula);
-    public void save(Cliente cliente);
+    public Cliente save(Cliente cliente);
     public void deleteCliente(Long id);
-    public void updateCliente(Cliente cliente);
+    public Cliente updateCliente(Cliente cliente);
 }

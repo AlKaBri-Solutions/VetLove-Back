@@ -18,9 +18,7 @@ import com.vetlove.demo.Entidad.Cliente;
 import com.vetlove.demo.Entidad.Mascota;
 import com.vetlove.demo.EntidadRequest.AddMascotaRequest;
 import com.vetlove.demo.Interfaz.IClienteServicio;
-import com.vetlove.demo.Interfaz.IEstadoMasServicio;
 import com.vetlove.demo.Interfaz.IMascotaServicio;
-import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 
 
 
@@ -37,11 +35,6 @@ public class MascotaController {
     @Autowired
     private IClienteServicio clienteServicio;
 
-    @Autowired
-    private IEstadoMasServicio estadoMasServicio;
-
-    @Autowired
-    private IVeterinarioServicio veterinarioServicio;
 
     //Métodos GET
     //http://localhost:8090/mascota/all
