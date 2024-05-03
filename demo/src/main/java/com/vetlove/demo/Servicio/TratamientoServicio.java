@@ -46,7 +46,7 @@ public class TratamientoServicio implements ITratamientoServicio {
 
     @Override
     public Tratamiento searchById(Long id) {
-        return repoTratamiento.findById(id).orElse(null);
+        return repoTratamiento.findById(id).get();
     }
 
     @Override
