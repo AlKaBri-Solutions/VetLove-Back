@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -92,5 +93,11 @@ public class ClienteController {
     }
 
     // Métodos DELETE
+    // http://localhost:8090/cliente/delete?id=1
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCliente(@RequestParam Long id) {
+        clienteServicio.deleteById(id);
+        return new ResponseEntity<>("DELETED", HttpStatus.NO_CONTENT);
+    }
 
 }
