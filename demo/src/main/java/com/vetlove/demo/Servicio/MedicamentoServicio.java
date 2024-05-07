@@ -11,12 +11,13 @@ import com.vetlove.demo.Entidad.EstadoMas;
 import com.vetlove.demo.Entidad.Mascota;
 import com.vetlove.demo.Entidad.Medicamento;
 import com.vetlove.demo.Entidad.Tratamiento;
+import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 import com.vetlove.demo.Interfaz.IMedicamentoServicio;
-import com.vetlove.demo.Repositorio.EnfermedadRepositorio;
 import com.vetlove.demo.Repositorio.EstadoMasRepositorio;
 import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.MedicamentoRepositorio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
+import com.vetlove.demo.Repositorio.TratamientosXEnfermedadLMConsultaRepositorio;
 
 @Service
 public class MedicamentoServicio implements IMedicamentoServicio {
@@ -34,7 +35,7 @@ public class MedicamentoServicio implements IMedicamentoServicio {
     private MascotaRepositorio repoMascota;
 
     @Autowired
-    private EnfermedadRepositorio repoEnfermedad;
+    private TratamientosXEnfermedadLMConsultaRepositorio repoTratamientosXEnfermedad;
 
 
     @Override
@@ -115,6 +116,11 @@ public class MedicamentoServicio implements IMedicamentoServicio {
     @Override
     public List<Medicamento> findTopVendidos() {
         return repoMedicamento.findTopVendidos();
+    }
+
+    @Override
+    public List<TratamientosXEnfermedadLMConsulta> countMedicamentoXEnfermedadLastMonth() {
+        return repoTratamientosXEnfermedad.findMedicamentoXEnfermedadLastMonth();
     }
 
 

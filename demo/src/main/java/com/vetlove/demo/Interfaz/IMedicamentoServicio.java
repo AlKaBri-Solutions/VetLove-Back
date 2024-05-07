@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vetlove.demo.Entidad.Medicamento;
 import com.vetlove.demo.Entidad.Tratamiento;
+import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 
 public interface IMedicamentoServicio {
     public int aplicarMedicamento(Tratamiento tratamiento);
@@ -14,4 +15,5 @@ public interface IMedicamentoServicio {
     public double findVentasTotales();
     public double findGananciasTotales();
     public List<Medicamento> findTopVendidos();
+    public List<TratamientosXEnfermedadLMConsulta> countMedicamentoXEnfermedadLastMonth();
 }
