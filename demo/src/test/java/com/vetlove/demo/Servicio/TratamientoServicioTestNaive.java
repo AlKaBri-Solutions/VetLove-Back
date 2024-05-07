@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Random;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +26,8 @@ import com.vetlove.demo.Entidad.Medicamento;
 import com.vetlove.demo.Entidad.Prioridad;
 import com.vetlove.demo.Entidad.Tratamiento;
 import com.vetlove.demo.Entidad.Veterinario;
+import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
+import com.vetlove.demo.EntidadRequest.AddTratamientoRequest;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
 import com.vetlove.demo.Repositorio.AdministradorRepositorio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
@@ -188,53 +189,51 @@ public class TratamientoServicioTestNaive {
         repoMedicamento.save(medicamento1);
         Medicamento medicamento2 = new Medicamento(50, 25, 100, 0);
         medicamento2.setNombre("Blkauhhgsd");
-        medicamento2.setEnfermedad(enfermedad2);
+        medicamento2.setEnfermedad(enfermedad1);
         repoMedicamento.save(medicamento2);
         Medicamento medicamento3 = new Medicamento(50, 25, 100, 0);
         medicamento3.setNombre("Cshgdfk");
-        medicamento3.setEnfermedad(enfermedad3);
+        medicamento3.setEnfermedad(enfermedad1);
         repoMedicamento.save(medicamento3);
         Medicamento medicamento4 = new Medicamento(50, 25, 100, 0);
         medicamento4.setNombre("Diigewkjlb");
-        medicamento4.setEnfermedad(enfermedad4);
+        medicamento4.setEnfermedad(enfermedad1);
         repoMedicamento.save(medicamento4);
         Medicamento medicamento5 = new Medicamento(50, 25, 100, 0);
         medicamento5.setNombre("Ehgsdhfi");
-        medicamento5.setEnfermedad(enfermedad5);
+        medicamento5.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento5);
         Medicamento medicamento6 = new Medicamento(50, 25, 100, 0);
         medicamento6.setNombre("Fluisbgfd");
-        medicamento6.setEnfermedad(enfermedad6);
+        medicamento6.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento6);
         Medicamento medicamento7 = new Medicamento(50, 25, 100, 0);
         medicamento7.setNombre("Guoishfdg");
-        medicamento7.setEnfermedad(enfermedad7);
+        medicamento7.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento7);
         Medicamento medicamento8 = new Medicamento(50, 25, 100, 0);
         medicamento8.setNombre("Hiogsdfj");
-        medicamento8.setEnfermedad(enfermedad8);
+        medicamento8.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento8);
         Medicamento medicamento9 = new Medicamento(50, 25, 100, 0);
         medicamento9.setNombre("Ioibdszfhdsbk");
-        medicamento9.setEnfermedad(enfermedad9);
+        medicamento9.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento9);
         Medicamento medicamento10 = new Medicamento(50, 25, 100, 0);
         medicamento10.setNombre("Alkagd");
         medicamento1.setEnfermedad(enfermedad1);
+        repoMedicamento.save(medicamento10);
         
 
         for (int i = 0; i < 4; i++) {
-                        LocalDate startDate = LocalDate.of(2024, 1, 1);
+                        LocalDate startDate = LocalDate.of(2024, 5, 1);
                         
-                        LocalDate endDate = LocalDate.of(2024, 6, 21);
-
-                        long randomDays = new Random().nextLong(ChronoUnit.DAYS.between(startDate, endDate));
-
-                        LocalDate randomDate = startDate.plusDays(randomDays);
-
-                        long randomDays2 = new Random().nextLong(ChronoUnit.DAYS.between(randomDate, endDate));
-
-                        LocalDate randomDate2 = randomDate.plusDays(randomDays2);
+                        LocalDate endDate = LocalDate.of(2024, 5, 30);
 
                         Date dateInicio = new java.sql.Date(
-                                        randomDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                                        startDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
                         Date dateFinal = new java.sql.Date(
-                                        randomDate2.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                            endDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
                         Tratamiento tratamiento = new Tratamiento();
                         tratamiento.setFechaInicio(dateInicio);
@@ -242,11 +241,11 @@ public class TratamientoServicioTestNaive {
                         Mascota mascota = repoMascota.findById((long) i + 1).get();
                         mascota.setEstado(repoEstadoMas.findByNombre("Ingresado"));
                         tratamiento.setMascota(mascota);
-                        Long medicamentoId = (long) i*3 + 1;
+                        Long medicamentoId = (long) i + 1;
                         Medicamento medicamento = repoMedicamento.findById(medicamentoId).get();
                         tratamiento.setMedicamento(medicamento);
                         tratamiento.setCosto((float) medicamento.getPrecio());
-                        if (Math.random() > 0.2) {
+                        if (i%2==0) {
                                 tratamiento.setMedicamentoAplicado(false);
                         }
                         else {
@@ -292,5 +291,131 @@ public class TratamientoServicioTestNaive {
         //Assert
 
         Assertions.assertThat(count).isNotEqualTo(0);
+        Assertions.assertThat(count).isEqualTo(2);
     }
+
+    @Test
+    public void TratamientoServicio_countTratamientosRealizados_int(){
+        //Arrange
+
+        //Act
+
+        int count = servicioTratamiento.countTratamientosRealizados();
+
+        //Assert
+
+        Assertions.assertThat(count).isNotEqualTo(0);
+        Assertions.assertThat(count).isEqualTo(2);
+    }
+
+    @Test
+    public void TratamientoServicio_SearchAll_ListTratamiento(){
+        //Arrange
+
+        //Act
+        List<Tratamiento> list = servicioTratamiento.SearchAll();
+
+        //Assert
+        Assertions.assertThat(list.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void TratamientoServicio_getCountTratamientosLastMonth_int(){
+        //Arrange
+
+        //Act
+        int count = servicioTratamiento.getCountTratamientosLastMonth();
+
+        //Assert
+        Assertions.assertThat(count).isGreaterThanOrEqualTo(0);
+        Assertions.assertThat(count).isEqualTo(2);
+    }
+
+    @Test
+    public void TratamientoServicio_tratamientosXEnfermedadLastMonth_ListTratamientosXEnfermedadLMConsulta(){
+        //Arrange
+
+        //Act
+        List<TratamientosXEnfermedadLMConsulta> list = servicioTratamiento.tratamientosXEnfermedadLastMonth();
+
+        //Assert
+        Assertions.assertThat(list.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void TratamientoServicio_SearchAllByMascotaId_ListTratamiento(){
+        //Arrange
+
+        //Act
+        List<Tratamiento> list = servicioTratamiento.SearchAllByMascotaId(1L);
+
+        //Assert
+        Assertions.assertThat(list.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void TratamientoServicio_SearchActivosByVeterinarioId_ListTratamiento(){
+        //Arrange
+
+        //Act
+        List<Tratamiento> list = servicioTratamiento.SearchActivosByVeterinarioId(1L);
+
+        //Assert
+        Assertions.assertThat(list.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void TratamientoServicio_save_int1(){
+        //Arrange
+        Enfermedad enfermedad = repoEnfermedad.findById(2L).get();
+
+        //Act
+        AddTratamientoRequest request = new AddTratamientoRequest(
+            enfermedad,
+            "1125248041",
+            "Iris",
+            30
+        );
+        int id = servicioTratamiento.save(request);
+
+        //Assert
+        Assertions.assertThat(id).isEqualTo(1);
+    }
+
+    @Test
+    public void TratamientoServicio_save_intNegative1(){
+        //Arrange
+        Enfermedad enfermedad = repoEnfermedad.findById(2L).get();
+
+        //Act
+        AddTratamientoRequest request = new AddTratamientoRequest(
+            enfermedad,
+            "1125248041",
+            "Fernando",
+            30
+        );
+        int id = servicioTratamiento.save(request);
+
+        //Assert
+        Assertions.assertThat(id).isEqualTo(-1);
+    }
+
+    @Test
+    public void TratamientoServicio_save_intNegative2(){
+        //Arrange
+        Enfermedad enfermedad = repoEnfermedad.findById(2L).get();
+
+        //Act
+        AddTratamientoRequest request = new AddTratamientoRequest(
+            enfermedad,
+            "13248480874354",
+            "Ginny",
+            30
+        );
+        int id = servicioTratamiento.save(request);
+
+        //Assert
+        Assertions.assertThat(id).isEqualTo(-2);
+    }
+
 }

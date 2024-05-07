@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Medicamento;
 import com.vetlove.demo.Entidad.Tratamiento;
+import com.vetlove.demo.EntidadConsulta.TratamientosXEnfermedadLMConsulta;
 import com.vetlove.demo.Interfaz.IMedicamentoServicio;
+
 
 
 
@@ -62,6 +64,10 @@ public class MedicamentoController {
         return medicamentoServicio.findTopVendidos();
     }
     
+    @GetMapping("/countMedicamentoXEnfermedadLastMonth")
+    public List<TratamientosXEnfermedadLMConsulta> findMedicamentoXEnfermedadLastMonth() {
+        return medicamentoServicio.countMedicamentoXEnfermedadLastMonth();
+    }
     
 
     //Métodos POST

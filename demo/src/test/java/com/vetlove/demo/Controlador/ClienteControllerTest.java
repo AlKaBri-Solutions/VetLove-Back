@@ -1,5 +1,6 @@
 package com.vetlove.demo.Controlador;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,5 +69,71 @@ public class ClienteControllerTest {
         .andExpect(jsonPath("$.celular").value("3022255997"));
     }
 
-    
+    @Test
+    public void ClienteController_getClienteById() throws Exception{
+
+        when(clienteServicio.SearchById(1L)).thenReturn(
+            new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")
+        );
+
+        ResultActions response = mockMvc.perform(
+            get("/cliente/find?id=1")
+        );
+
+        response.andExpect(status().isOk())
+        .andExpect(jsonPath("$.cedula").value("1232434543"))
+        .andExpect(jsonPath("$.nombre").value("Prueba5"))
+        .andExpect(jsonPath("$.correo").value("prueba1@gmail.com"))
+        .andExpect(jsonPath("$.celular").value("3022255997"));
+    }
+
+    @Test
+    public void ClienteController_getClienteByCedula() throws Exception{
+        
+        when(clienteServicio.SearchByCedula("1232434543")).thenReturn(
+            new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")
+        );
+
+        ResultActions response = mockMvc.perform(
+            get("/cliente/findCedula?cedula=1232434543")
+        );
+
+        response.andExpect(status().isOk())
+        .andExpect(jsonPath("$.cedula").value("1232434543"))
+        .andExpect(jsonPath("$.nombre").value("Prueba5"))
+        .andExpect(jsonPath("$.correo").value("prueba1@gmail.com"))
+        .andExpect(jsonPath("$.celular").value("3022255997"));
+    }
+
+    @Test
+    public void addCliente() throws Exception{
+
+        when(clienteServicio.save(any(Cliente.class))).thenReturn(
+            new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")
+        );
+
+        ResultActions response = mockMvc.perform(
+            post("/cliente/add")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")))
+        );
+
+        response.andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void updateCliente() throws Exception{
+
+        when(clienteServicio.save(any(Cliente.class))).thenReturn(
+            new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")
+        );
+
+        ResultActions response = mockMvc.perform(
+            put("/cliente/update")
+            .contentType("application/json")
+            .content(objectMapper.writeValueAsString(new Cliente("1232434543", "Prueba5", "prueba1@gmail.com", "3022255997")))
+        );
+
+        response.andExpect(status().isNoContent());
+    }
 }
