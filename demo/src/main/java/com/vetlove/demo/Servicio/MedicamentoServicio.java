@@ -37,7 +37,6 @@ public class MedicamentoServicio implements IMedicamentoServicio {
     @Autowired
     private TratamientosXEnfermedadLMConsultaRepositorio repoTratamientosXEnfermedad;
 
-
     @Override
     public int aplicarMedicamento(Tratamiento tratamiento) {
         Medicamento medicamento = tratamiento.getMedicamento();
@@ -47,13 +46,23 @@ public class MedicamentoServicio implements IMedicamentoServicio {
             medicamento.setVendidas(medicamento.getVendidas() + 1);
             medicamento.setUnidades(medicamento.getUnidades() - 1);
             repoMedicamento.save(medicamento);
+            Date inicio = tratamiento.getFechaInicio();
+            long inMillis = inicio.getTime();
+            inMillis += 86400000; // One day in milliseconds (24 * 60 * 60 * 1000)
+            Date newInicio = new Date(inMillis);
+            Date fin = tratamiento.getFechaFin();
+            long finMillis = fin.getTime();
+            finMillis += 86400000;
+            Date newFin = new Date(finMillis);
+            tratamiento.setFechaInicio(newInicio);
+            tratamiento.setFechaFin(newFin);
             tratamiento.setMedicamentoAplicado(true);
             repoTratamiento.save(tratamiento);
             EstadoMas estado = repoEstadoMas.findByNombre("De baja");
             Mascota mascota = tratamiento.getMascota();
             mascota.setEstado(estado);
             repoMascota.save(mascota);
-            
+
             return 1;
         }
     }
@@ -83,8 +92,6 @@ public class MedicamentoServicio implements IMedicamentoServicio {
                 long inMillis = inicio.getTime();
                 inMillis += 86400000; // One day in milliseconds (24 * 60 * 60 * 1000)
                 Date newInicio = new Date(inMillis);
-
-                // Add one day to the fin date
                 inMillis = fin.getTime();
                 inMillis += 86400000;
                 Date newFin = new Date(inMillis);
@@ -122,6 +129,5 @@ public class MedicamentoServicio implements IMedicamentoServicio {
     public List<TratamientosXEnfermedadLMConsulta> countMedicamentoXEnfermedadLastMonth() {
         return repoTratamientosXEnfermedad.findMedicamentoXEnfermedadLastMonth();
     }
-
 
 }

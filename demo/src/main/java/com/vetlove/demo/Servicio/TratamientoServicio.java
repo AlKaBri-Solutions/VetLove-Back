@@ -105,6 +105,7 @@ public class TratamientoServicio implements ITratamientoServicio {
         LocalDate fechaInicio = LocalDate.now(); // Get the current date
         t.setFechaInicio(java.sql.Date.valueOf(fechaInicio));
 
+        
         LocalDate fechaFin = fechaInicio.plusDays(tratamiento.getDuracion()); // Add the specified number of days
         t.setFechaFin(java.sql.Date.valueOf(fechaFin));
         List<Medicamento> medicamentos = repoMedicamento.findByEnfermedad(tratamiento.getEnfermedad());
