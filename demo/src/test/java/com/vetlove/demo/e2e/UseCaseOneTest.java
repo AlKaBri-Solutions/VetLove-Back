@@ -218,6 +218,7 @@ public class UseCaseOneTest {
 
         List<WebElement> options = driver.findElements(By.tagName("option"));
 
+        //Clickear el 8
         options.get(8).click();
 
         WebElement btnAddTratamiento2 = driver.findElement(By.className("btn-enviar"));
