@@ -30,29 +30,29 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class UseCaseOneTest {
     private final String BASE_URL = "http://localhost:4200";
 
-     @Autowired
-     private ClienteServicio clienteServicio;
+    @Autowired
+    private ClienteServicio clienteServicio;
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     @BeforeEach
-    public void init(){
-        
+    public void init() {
+
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions chromeOptions = new ChromeOptions();
 
         chromeOptions.addArguments("--disable-notifications");
         chromeOptions.addArguments("--disable-extensions");
-        //chromeOptions.addArguments("--headless");
+        // chromeOptions.addArguments("--headless");
 
         this.driver = new ChromeDriver(chromeOptions);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     @Test
-    public void UseCaseOne_AddClienteTest(){
+    public void UseCaseOne_AddClienteTest() {
         driver.get(BASE_URL + "/login");
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("flip-card__btn")));
         WebElement btnSwtich = driver.findElement(By.className("slider"));
@@ -163,13 +163,12 @@ public class UseCaseOneTest {
 
         btnLogin.click();
 
-        //Use wait to wait 5 seconds
+        // Use wait to wait 5 seconds
 
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("setting-btn")));
         List<WebElement> mascotaNombre = driver.findElements(By.className("row-1"));
         List<WebElement> mascotaRaza = driver.findElements(By.className("row-2"));
         List<WebElement> mascotarEdad = driver.findElements(By.className("row-3"));
-
 
         Assertions.assertThat(mascotaNombre.get(1).getText()).isEqualTo("Ginny");
         Assertions.assertThat(mascotaRaza.get(1).getText()).isEqualTo("Persa");
@@ -178,13 +177,102 @@ public class UseCaseOneTest {
     }
 
     @Test
-    public void UseCaseTwo_AplicarTratamiento(){
+    public void UseCaseTwo_AplicarTratamiento() {
         driver.get(BASE_URL + "/veterinario/mis-tratamientos?id=1");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("flip-card__btn")));
+
+        
+        List<WebElement> btnsAplicarTratamiento = driver.findElements(By.className("aplicar"));
+
+        btnsAplicarTratamiento.get(1).click();
+
+        driver.get(BASE_URL + "/admin/dashboard");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("dinero")));
+
+        List<WebElement> dineros = driver.findElements(By.className("dinero"));
+        String gananciasIniciales = dineros.get(0).getText();
+        
+        List<WebElement> cantidades = driver.findElements(By.className("mascotas-trat"));
+        String cantidadesInicialess = cantidades.get(0).getText();
+        
+        driver.get(BASE_URL + "/veterinario/mis-mascotas?id=1");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("row-5-v")));
+
+        WebElement search = driver.findElement(By.id("filtro"));
+        search.click();
+        search.sendKeys("Max");
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("row-5-v")));
+
+        WebElement btnAddTratamiento = driver.findElement(By.className("button"));
+
+        btnAddTratamiento.click();
+
+        WebElement inputDias = driver.findElement(By.id("id_raza"));
+
+        inputDias.sendKeys(Keys.BACK_SPACE);
+        inputDias.sendKeys("10");
+
+        // WebElement selectEnfermedad = driver.findElement(By.id("enfermedad"));
+
+        // selectEnfermedad.click();
+
+        List<WebElement> options = driver.findElements(By.tagName("option"));
+
+        options.get(8).click();
+
+        WebElement btnAddTratamiento2 = driver.findElement(By.className("btn-enviar"));
+
+        btnAddTratamiento2.click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("row-5-v")));
+
+        List<WebElement> btnsAplicarTratamiento3 = driver.findElements(By.className("aplicar"));
+
+        btnsAplicarTratamiento3.get(1).click();
+
+        driver.get(BASE_URL + "/login");
+
+        WebElement inputCedula = driver.findElement(By.id("id_email"));
+
+        inputCedula.sendKeys("1125248041");
+
+        WebElement btnLogin = driver.findElement(By.id("boton-login-dueño"));
+
+        btnLogin.click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("setting-btn")));
+
+        List<WebElement> btnsDetalles = driver.findElements(By.className("setting-btn"));
+
+        btnsDetalles.get(1).click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("row-data-3")));
+
+        WebElement enfermedad = driver.findElement(By.className("row-data-3"));
+
+        Assertions.assertThat(enfermedad.getText()).isEqualTo("Enfermedad: Epilepsia");
+        
+        List<WebElement> resaltados = driver.findElements(By.className("row-data"));
+
+        Assertions.assertThat(resaltados.get(2).getText()).isEqualTo("Medicamento:\nALTIDOX");
+        Assertions.assertThat(resaltados.get(3).getText()).isEqualTo("Fecha inicio:\n2024-05-09");
+        Assertions.assertThat(resaltados.get(4).getText()).isEqualTo("Fecha fin:\n2024-05-19");
+
+        driver.get(BASE_URL + "/admin/dashboard");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("dinero")));
+
+        List<WebElement> dinerosAfter = driver.findElements(By.className("dinero"));
+        String gananciasFinales = dinerosAfter.get(0).getText();
+        
+        List<WebElement> cantidadesAfter = driver.findElements(By.className("mascotas-trat"));
+        String cantidadesFinales = cantidadesAfter.get(0).getText();
+
+        Assertions.assertThat(gananciasFinales).isGreaterThan(gananciasIniciales);
+        Assertions.assertThat(cantidadesFinales).isEqualTo(String.valueOf(Integer.valueOf(cantidadesInicialess) + 1));
     }
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         driver.quit();
         // clienteServicio.deleteById(51L);
     }

@@ -526,10 +526,10 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Cargar medicamentos desde un excel
                 try (BufferedReader br = new BufferedReader(new FileReader(
-                                "./demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
+                        "C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/VetLove-Back/demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
                         String line = br.readLine();
                         line = br.readLine();
-
+                        int i = 0;
                         while ((line = br.readLine()) != null) {
                                 Medicamento medicamento = new Medicamento();
                                 String[] values = line.split(";");
@@ -539,7 +539,7 @@ public class DatabaseInit implements ApplicationRunner {
                                 medicamento.setUnidades(Integer.parseInt(values[3]));
                                 medicamento.setVendidas(Integer.parseInt(values[4]));
                                 int randomNumber = (int) (Math.random() * 11);
-                                switch (randomNumber) {
+                                switch (i%11) {
                                         case 0:
                                                 medicamento.setEnfermedad(enfermedad);
                                                 break;
@@ -586,6 +586,7 @@ public class DatabaseInit implements ApplicationRunner {
                                 }
 
                                 repoMedicamento.save(medicamento);
+                                i++;
                         }
                 }
 
@@ -618,7 +619,7 @@ public class DatabaseInit implements ApplicationRunner {
                         Medicamento medicamento = repoMedicamento.findById(medicamentoId).get();
                         tratamiento.setMedicamento(medicamento);
                         tratamiento.setCosto((float) medicamento.getPrecio());
-                        if (Math.random() > 0.2) {
+                        if (Math.random() > 0) {
                                 tratamiento.setMedicamentoAplicado(false);
                         }
                         else {
