@@ -9,8 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class EstadoVet {
     @Id
     @GeneratedValue
@@ -21,10 +25,6 @@ public class EstadoVet {
     @OneToMany(mappedBy = "estado")
     List<Veterinario> veterinario = new ArrayList<>();
 
-    public EstadoVet() {
-    
-    }
-    
     public EstadoVet(String nombre) {
         this.nombre = nombre;
     }
@@ -32,33 +32,5 @@ public class EstadoVet {
     public EstadoVet(String nombre, List<Veterinario> veterinario) {
         this.nombre = nombre;
         this.veterinario = veterinario;
-    }
-
-    public Long getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Long idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Veterinario> getVeterinario() {
-        return veterinario;
-    }
-
-    public void setVeterinario(List<Veterinario> veterinario) {
-        this.veterinario = veterinario;
-    }
-
-    
-
-    
+    }    
 }

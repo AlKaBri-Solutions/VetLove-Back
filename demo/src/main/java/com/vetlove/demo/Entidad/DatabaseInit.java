@@ -526,7 +526,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Cargar medicamentos desde un excel
                 try (BufferedReader br = new BufferedReader(new FileReader(
-                        "C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/VetLove-Back/demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
+                        "C:/Users/Fbrinez/Desktop/VetLove-Back/demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
                         String line = br.readLine();
                         line = br.readLine();
                         int i = 0;
@@ -631,7 +631,8 @@ public class DatabaseInit implements ApplicationRunner {
                         repoTratamiento.save(tratamiento);
                 }
                 
-                Administrador admin = new Administrador("1000586123", "super-secret-password");
+                Administrador admin = Administrador.builder().cedula("1000586123").contrasenia("super-secret-password").build(); 
+                //Administrador admin = new Administrador("1000586123", "super-secret-password");
                 repoAdministrador.save(admin);
 
                 repoHora.save(new Hora("00:00"));

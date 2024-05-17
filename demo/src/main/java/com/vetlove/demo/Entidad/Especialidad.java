@@ -9,8 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Especialidad {
     @Id
     @GeneratedValue
@@ -20,10 +24,6 @@ public class Especialidad {
     @JsonIgnore
     @OneToMany(mappedBy = "especialidad")
     List<Veterinario> veterinarios = new ArrayList<>();
-    
-    public Especialidad() {
-
-    }
 
     public Especialidad(String nombre) {
         this.nombre = nombre;
@@ -33,32 +33,4 @@ public class Especialidad {
         this.idEspecialidad = idEspecialidad;
         this.nombre = nombre;
     }
-
-    public Long getIdEspecialidad() {
-        return idEspecialidad;
-    }
-
-    public void setIdEspecialidad(Long idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Veterinario> getVeterinarios() {
-        return veterinarios;
-    }
-
-    public void setVeterinarios(List<Veterinario> veterinarios) {
-        this.veterinarios = veterinarios;
-    }
-
-    
-
-    
 }

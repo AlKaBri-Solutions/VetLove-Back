@@ -8,8 +8,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Fecha {
     @Id
     @GeneratedValue
@@ -21,8 +25,6 @@ public class Fecha {
 
     private String fecha;
     
-    public Fecha() {
-    }
 
     public Fecha(String fecha) {
         this.fecha = fecha;
@@ -31,31 +33,5 @@ public class Fecha {
     public Fecha(Long id, String fecha) {
         this.id = id;
         this.fecha = fecha;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-    
+    }    
 }
