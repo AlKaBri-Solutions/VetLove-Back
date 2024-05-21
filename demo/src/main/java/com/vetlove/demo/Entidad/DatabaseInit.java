@@ -94,9 +94,19 @@ public class DatabaseInit implements ApplicationRunner {
 
         @Override
         public void run(ApplicationArguments args) throws Exception {
-                repoRol.save(new Rol("CLIENTE")); 
-                repoRol.save(new Rol("VETERINARIO")); 
-                repoRol.save(new Rol("ADMIN"));
+
+                new Rol(null);
+                Rol rol1 = Rol.builder().name("CLIENTE").build(); 
+
+                new Rol(null);
+                Rol rol2 = Rol.builder().name("VETERINARIO").build();
+
+                new Rol(null);
+                Rol rol3 = Rol.builder().name("ADMIN").build();
+
+                repoRol.save(rol1); 
+                repoRol.save(rol2); 
+                repoRol.save(rol3);
                 
                 
                 Veterinario veterinarioSave; 
