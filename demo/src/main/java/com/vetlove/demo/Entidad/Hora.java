@@ -8,8 +8,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Hora {
     @Id
     @GeneratedValue
@@ -21,9 +25,6 @@ public class Hora {
 
     private String horario;
 
-    public Hora() {
-    }
-
     public Hora(String horario) {
         this.horario = horario;
     }
@@ -32,30 +33,4 @@ public class Hora {
         this.id = id;
         this.horario = horario;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getHorario() {
-        return horario;
-    }
-
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-    
 }

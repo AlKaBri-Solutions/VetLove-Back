@@ -9,8 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Prioridad {
     @Id
     @GeneratedValue
@@ -21,10 +25,6 @@ public class Prioridad {
     @OneToMany(mappedBy = "prioridad")
     List<Enfermedad> enfermedades = new ArrayList<>();
 
-    public Prioridad() {
-
-    }
-
     public Prioridad(String nombre) {
         this.nombre = nombre;
     }
@@ -33,30 +33,4 @@ public class Prioridad {
         this.idPrioridad = idPrioridad;
         this.nombre = nombre;
     }
-
-    public Long getIdPrioridad() {
-        return idPrioridad;
-    }
-
-    public void setIdPrioridad(Long idPrioridad) {
-        this.idPrioridad = idPrioridad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Enfermedad> getEnfermedades() {
-        return enfermedades;
-    }
-
-    public void setEnfermedades(List<Enfermedad> enfermedades) {
-        this.enfermedades = enfermedades;
-    }
-
-    
 }

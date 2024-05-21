@@ -3,8 +3,12 @@ package com.vetlove.demo.Controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.Entidad.Cliente;
+import com.vetlove.demo.Entidad.UserEntity;
 import com.vetlove.demo.Entidad.Veterinario;
 import com.vetlove.demo.EntidadRequest.AddClienteRequest;
 import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IVeterinarioServicio;
+import com.vetlove.demo.Repositorio.UsersRepository;
+import com.vetlove.demo.Security.CustomUserDetailService;
+import com.vetlove.demo.Security.JWTGenerator;
 
 @RestController
 @RequestMapping("/cliente")
@@ -30,6 +38,18 @@ public class ClienteController {
 
     @Autowired
     private IVeterinarioServicio veterinarioServicio;
+
+    @Autowired
+    UsersRepository userRepository;
+
+    @Autowired
+    private CustomUserDetailService customUserDetailService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+    
+    @Autowired
+    JWTGenerator jwtGenerator;
 
     // Métodos GET
 
@@ -67,16 +87,42 @@ public class ClienteController {
 
     // Métodos POST
     // http://localhost:8090/cliente/add
+    // @PostMapping("/add")
+    // public ResponseEntity<String> addCliente(@RequestBody AddClienteRequest
+    // params) {
+
+    // Cliente client = params.getCliente();
+    // Veterinario veterinario =
+    // veterinarioServicio.SearchById(Long.parseLong(params.getId()));
+    // client.setVeterinario(veterinario);
+    // Cliente cliente = clienteServicio.save(client);
+    // System.out.println(cliente);
+
+    // return new ResponseEntity<>("SAVED", HttpStatus.NO_CONTENT);
+    // }
+
     @PostMapping("/add")
-    public ResponseEntity<String> addCliente(@RequestBody AddClienteRequest params) {
+    public ResponseEntity addCliente(@RequestBody AddClienteRequest params) {
+        Cliente cliente = params.getCliente();
 
-        Cliente client = params.getCliente();
+        if (userRepository.existsByUsername(cliente.getCedula())) {
+            return new ResponseEntity<String>("Este usuario ya existe", HttpStatus.BAD_REQUEST);
+        }
+
         Veterinario veterinario = veterinarioServicio.SearchById(Long.parseLong(params.getId()));
-        client.setVeterinario(veterinario);
-        Cliente cliente = clienteServicio.save(client);
-        System.out.println(cliente);
-
-        return new ResponseEntity<>("SAVED", HttpStatus.NO_CONTENT);
+        if (veterinario == null) {
+            return new ResponseEntity<Cliente>(cliente, HttpStatus.BAD_REQUEST); // Veterinario no encontrado
+        }
+        cliente.setVeterinario(veterinario);
+        
+        UserEntity userEntity = customUserDetailService.saveCliente(cliente);
+        cliente.setUser(userEntity);
+        
+        Cliente newCliente = clienteServicio.save(cliente);
+        if (newCliente == null) {
+            return new ResponseEntity<Cliente>(newCliente, HttpStatus.BAD_REQUEST); // Fallo al guardar el cliente
+        }
+        return new ResponseEntity<Cliente>(newCliente, HttpStatus.CREATED);
     }
 
     // Métodos PUT
@@ -99,5 +145,35 @@ public class ClienteController {
         clienteServicio.deleteById(id);
         return new ResponseEntity<>("DELETED", HttpStatus.NO_CONTENT);
     }
+
+
+    // http://localhost:8090/cliente/login?12345678
+    @PostMapping("/login")
+    public ResponseEntity loginCliente(@RequestBody Cliente cliente) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(cliente.getCedula(), "123")
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = jwtGenerator.generateToken(authentication);
+
+        return new ResponseEntity<String>(token, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/details")
+    public ResponseEntity<Cliente> buscarCliente() {
+        
+        Cliente cliente = clienteServicio.SearchByCedula(
+            SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+        if(cliente == null){
+            return new ResponseEntity<Cliente>(cliente, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+    }
+    
+    
 
 }

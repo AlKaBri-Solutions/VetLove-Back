@@ -8,8 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Tratamiento {
     @Id
     @GeneratedValue
@@ -26,10 +30,6 @@ public class Tratamiento {
     
     @ManyToOne
     Medicamento medicamento;
-    
-    public Tratamiento() {
-        
-    }
 
     public Tratamiento(Date fechaInicio, Date fechaFin, float costo, boolean medicamentoAplicado) {
         this.fechaInicio = fechaInicio;
@@ -44,64 +44,4 @@ public class Tratamiento {
         this.fechaFin = fechaFin;
         this.costo = costo;
     }
-
-    public Long getIdTratamiento() {
-        return idTratamiento;
-    }
-
-    public void setIdTratamiento(Long idTratamiento) {
-        this.idTratamiento = idTratamiento;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(float costo) {
-        this.costo = costo;
-    }
-
-    public Mascota getMascota() {
-        return mascota;
-    }
-
-    public void setMascota(Mascota mascota) {
-        this.mascota = mascota;
-    }
-
-    public Medicamento getMedicamento() {
-        return medicamento;
-    }
-
-    public void setMedicamento(Medicamento medicamento) {
-        this.medicamento = medicamento;
-    }
-
-    public boolean isMedicamentoAplicado() {
-        return medicamentoAplicado;
-    }
-
-    public void setMedicamentoAplicado(boolean medicamentoAplicado) {
-        this.medicamentoAplicado = medicamentoAplicado;
-    }
-
-    
-
-    
 }

@@ -36,8 +36,8 @@ public class VeterinarioServicio implements IVeterinarioServicio{
     }
 
     @Override
-    public void save(Veterinario veterinario){
-        repoVeterinario.save(veterinario);
+    public Veterinario save(Veterinario veterinario){
+        return repoVeterinario.save(veterinario);
     }
 
     @Override

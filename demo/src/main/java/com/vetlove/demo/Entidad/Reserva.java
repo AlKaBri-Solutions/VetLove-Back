@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Reserva {
     @Id
     @GeneratedValue
@@ -19,10 +23,6 @@ public class Reserva {
 
     boolean disponible;
 
-    public Reserva(){
-
-    }
-
     public Reserva(Hora hora, Fecha fecha, boolean disponible){
         this.hora = hora;
         this.fecha = fecha;
@@ -34,30 +34,6 @@ public class Reserva {
         this.hora = hora;
         this.fecha = fecha;
         this.disponible = disponible;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Hora getHora() {
-        return hora;
-    }
-
-    public void setHora(Hora hora) {
-        this.hora = hora;
-    }
-
-    public Fecha getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Fecha fecha) {
-        this.fecha = fecha;
     }
 
     public boolean getDisponible() {
