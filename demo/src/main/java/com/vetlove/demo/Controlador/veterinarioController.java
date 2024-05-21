@@ -34,6 +34,7 @@ import com.vetlove.demo.Interfaz.IMascotaServicio;
 import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 import com.vetlove.demo.Repositorio.UsersRepository;
 import com.vetlove.demo.Security.CustomUserDetailService;
+import com.vetlove.demo.Security.JWTGenerator;
 
 
 
@@ -67,7 +68,10 @@ public class veterinarioController {
     private CustomUserDetailService customUserDetailService;
 
     @Autowired
-    AuthenticationManager authenticationManager; 
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JWTGenerator jwtGenerator;
     
     //Métodos GET
     //localhost:8090/veterinario/all
@@ -153,7 +157,24 @@ public class veterinarioController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseEntity<String>("Veterinario ingresado con éxito", HttpStatus.OK);
+        String token = jwtGenerator.generateToken(authentication);
+
+        return new ResponseEntity<String>(token, HttpStatus.OK);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<VeterinarioDTO> buscarCliente() {
+        
+        Veterinario veterinario = veterinarioServicio.SearchByCedula(
+            SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+
+        VeterinarioDTO veterinarioDTO = VeterinarioMapper.INSTANCE.convert(veterinario);
+
+        if(veterinario == null){
+            return new ResponseEntity<VeterinarioDTO>(veterinarioDTO, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<VeterinarioDTO>(veterinarioDTO, HttpStatus.OK);
     }
     
 

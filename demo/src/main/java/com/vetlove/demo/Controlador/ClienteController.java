@@ -27,6 +27,7 @@ import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Interfaz.IVeterinarioServicio;
 import com.vetlove.demo.Repositorio.UsersRepository;
 import com.vetlove.demo.Security.CustomUserDetailService;
+import com.vetlove.demo.Security.JWTGenerator;
 
 @RestController
 @RequestMapping("/cliente")
@@ -45,7 +46,10 @@ public class ClienteController {
     private CustomUserDetailService customUserDetailService;
 
     @Autowired
-    AuthenticationManager authenticationManager; 
+    AuthenticationManager authenticationManager;
+    
+    @Autowired
+    JWTGenerator jwtGenerator;
 
     // Métodos GET
 
@@ -152,8 +156,24 @@ public class ClienteController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseEntity<String>("Usuario ingresado con éxito", HttpStatus.OK);
+        String token = jwtGenerator.generateToken(authentication);
+
+        return new ResponseEntity<String>(token, HttpStatus.OK);
     }
+
+
+    @GetMapping("/details")
+    public ResponseEntity<Cliente> buscarCliente() {
+        
+        Cliente cliente = clienteServicio.SearchByCedula(
+            SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+        if(cliente == null){
+            return new ResponseEntity<Cliente>(cliente, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+    }
+    
     
 
 }
