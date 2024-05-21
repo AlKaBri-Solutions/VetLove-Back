@@ -20,7 +20,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/h2/**").permitAll()
                 .anyRequest().permitAll()
-            );
-        return http.build();  
+            ); 
+        return http.build();   
     }
 }
