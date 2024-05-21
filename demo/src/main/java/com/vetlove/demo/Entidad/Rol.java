@@ -19,9 +19,9 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre; 
+    private String name; 
 
-    public Rol(String nombre){
-        this.nombre = nombre;  
+    public Rol(String name){
+        this.name = name;  
     }
 }

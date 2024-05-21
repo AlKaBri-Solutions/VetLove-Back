@@ -6,8 +6,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,6 +17,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+
 
 import com.vetlove.demo.Repositorio.AdministradorRepositorio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
@@ -93,16 +96,15 @@ public class DatabaseInit implements ApplicationRunner {
 
         @Override
         public void run(ApplicationArguments args) throws Exception {
-                repoRol.save(new Rol("Cliente")); 
-                repoRol.save(new Rol("Veterinario")); 
-                repoRol.save(new Rol("Admin"));
+                repoRol.save(new Rol("CLIENTE")); 
+                repoRol.save(new Rol("VETERINARIO")); 
+                repoRol.save(new Rol("ADMIN"));
                 
-                Cliente clienteSave;
+                
                 Veterinario veterinarioSave; 
                 UserEntity userEntity;
 
-
-                clienteSave = new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327");
+                Cliente clienteSave = new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327");
                 userEntity = saveUserCliente(clienteSave); 
                 clienteSave.setUser(userEntity);
                 repoCliente.save(clienteSave); 
@@ -579,7 +581,7 @@ public class DatabaseInit implements ApplicationRunner {
                userEntity = saveUserVeterinario(veterinarioSave);
                veterinarioSave.setUserEntity(userEntity);
                repoVeterinario.save(veterinarioSave); 
-               
+
                 repoEspecialidad.save(new Especialidad("General"));
                 repoEspecialidad.save(new Especialidad("Cardiologia"));
                 repoEspecialidad.save(new Especialidad("Dermatologia"));
@@ -1327,13 +1329,22 @@ public class DatabaseInit implements ApplicationRunner {
                 }
         }
 
-        private UserEntity saveUserCliente(Cliente cliente){
+        private UserEntity saveUserCliente(Cliente cliente) {
                 UserEntity userEntity = new UserEntity();
                 userEntity.setUsername(cliente.getCedula());
                 userEntity.setPassword(passwordEncoder.encode("123"));
-                Rol roles = repoRol.findByNombre("Cliente").get();
-                userEntity.setRoles(List.of(roles));
+                
+                // Obtener el rol "CLIENTE" del repositorio de roles
+                Rol clienteRole = repoRol.findByName("CLIENTE").orElseThrow(() -> new RuntimeException("Rol 'CLIENTE' no encontrado"));
 
+                // Inicializar un conjunto mutable de roles y agregar el rol obtenido
+                Set<Rol> roles = new HashSet<>();
+                roles.add(clienteRole);
+                
+                // Establecer el conjunto de roles en el usuario
+                userEntity.setRoles(roles);
+
+                // Guardar el usuario en el repositorio
                 return repoUserEntity.save(userEntity); 
         }
 
@@ -1341,11 +1352,21 @@ public class DatabaseInit implements ApplicationRunner {
                 UserEntity userEntity = new UserEntity();
                 userEntity.setUsername(veterinario.getCedula());
                 userEntity.setPassword(passwordEncoder.encode(veterinario.getContrasenia()));
-                Rol roles = repoRol.findByNombre("Veterinario").get();
-                userEntity.setRoles(List.of(roles));
+                
+                // Obtener el rol "CLIENTE" del repositorio de roles
+                Rol vetRole = repoRol.findByName("VETERINARIO").orElseThrow(() -> new RuntimeException("Rol 'VETERINARIO' no encontrado"));
 
+                // Inicializar un conjunto mutable de roles y agregar el rol obtenido
+                Set<Rol> roles = new HashSet<>();
+                roles.add(vetRole);
+                
+                // Establecer el conjunto de roles en el usuario
+                userEntity.setRoles(roles);
+
+                // Guardar el usuario en el repositorio
                 return repoUserEntity.save(userEntity); 
         }
+        
 
 
 
