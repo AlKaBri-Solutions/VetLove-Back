@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 public class Cliente {
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private UserEntity user;  
 
     @Id

@@ -41,6 +41,7 @@ public class Veterinario {
     EstadoVet estado;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private UserEntity userEntity;
 
     public Veterinario(String cedula, String nombre, String contrasenia, String fotoUrl) {
