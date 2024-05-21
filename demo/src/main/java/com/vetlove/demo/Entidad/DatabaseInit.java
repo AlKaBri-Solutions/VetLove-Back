@@ -6,12 +6,14 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import com.vetlove.demo.Repositorio.AdministradorRepositorio;
@@ -26,7 +28,9 @@ import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.MedicamentoRepositorio;
 import com.vetlove.demo.Repositorio.PrioridadRepositorio;
 import com.vetlove.demo.Repositorio.ReservaRepositorio;
+import com.vetlove.demo.Repositorio.RolRepositorio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
+import com.vetlove.demo.Repositorio.UsersRepository;
 import com.vetlove.demo.Repositorio.VeterinarioRepositorio;
 
 import jakarta.transaction.Transactional;
@@ -78,74 +82,277 @@ public class DatabaseInit implements ApplicationRunner {
         @Autowired
         HoraRepositorio repoHora;
 
+        @Autowired
+        PasswordEncoder passwordEncoder;
+
+        @Autowired
+        RolRepositorio repoRol;
+        
+        @Autowired
+        UsersRepository repoUserEntity; 
+
         @Override
         public void run(ApplicationArguments args) throws Exception {
-                repoCliente.save(
-                                new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327"));
-                repoCliente.save(new Cliente("1001572832", "Laura Karara", "karara02@gmail.com", "3022678421"));
-                repoCliente.save(new Cliente("1000000241", "Pipe Briñex", "brinez1907@gmail.com", "3142211457"));
-                repoCliente.save(
-                                new Cliente("1000000123", "Laura Rodriguez", "rodriguezlaura@gmail.com", "3003003030"));
-                repoCliente.save(new Cliente("1000000789", "Maria Gomez", "mariagomez@yahoo.com", "3203203232"));
-                repoCliente.save(new Cliente("1000000456", "Juan Perez", "juanperez@hotmail.com", "3103103131"));
-                repoCliente.save(
-                                new Cliente("1000000987", "Carlos Sanchez", "carlossanchez@outlook.com", "3303303333"));
-                repoCliente.save(new Cliente("1000000654", "Ana Martinez", "anamartinez@gmail.com", "3403403434"));
-                repoCliente.save(new Cliente("1000000321", "Pedro Lopez", "pedrolopez@hotmail.com", "3503503535"));
-                repoCliente.save(new Cliente("1000000876", "Luisa Ramirez", "luisaramirez@yahoo.com", "3603603636"));
-                repoCliente.save(new Cliente("1000000543", "Jorge Hernandez", "jorgehernandez@outlook.com",
-                                "3703703737"));
-                repoCliente.save(new Cliente("1000000234", "Sofia Castro", "sofiacastro@gmail.com", "3803803838"));
-                repoCliente.save(new Cliente("1000000765", "Andres Diaz", "andresdiaz@hotmail.com", "3903903939"));
-                repoCliente.save(
-                                new Cliente("1000000345", "Gabriela Torres", "gabrielatorres@yahoo.com", "4004004040"));
-                repoCliente.save(new Cliente("1000000678", "Ricardo Pardo", "ricardopardo@outlook.com", "4104104141"));
-                repoCliente.save(new Cliente("1000000456", "Camila Duque", "camiladuque@gmail.com", "4204204242"));
-                repoCliente.save(new Cliente("1000000987", "Daniel Rojas", "danielrojas@hotmail.com", "4304304343"));
-                repoCliente.save(new Cliente("1000000789", "Valentina Duarte", "valentinaduarte@yahoo.com",
-                                "4404404444"));
-                repoCliente.save(new Cliente("1000000654", "Diego Castro", "diegocastro@outlook.com", "4504504545"));
-                repoCliente.save(new Cliente("1000000876", "Laura Perez", "lauraperez@gmail.com", "4604604646"));
-                repoCliente.save(new Cliente("1000000999", "Elena Sánchez", "elenasanchez@gmail.com", "3713713737"));
-                repoCliente.save(new Cliente("1000001000", "Javier García", "javiergarcia@yahoo.com", "3803803838"));
-                repoCliente.save(new Cliente("1000001001", "Andrea Fernandez", "afernandez@hotmail.com", "3903903939"));
-                repoCliente.save(new Cliente("1000001002", "Santiago Diaz", "santiagodiaz@gmail.com", "4004004040"));
-                repoCliente.save(new Cliente("1000001003", "Paula Ruiz", "paularuiz@yahoo.com", "4104104141"));
-                repoCliente.save(new Cliente("1000001004", "Mario Torres", "mariotorres@hotmail.com", "4204204242"));
-                repoCliente.save(new Cliente("1000001005", "Lucia Navarro", "lucianavarro@gmail.com", "4304304343"));
-                repoCliente.save(new Cliente("1000001006", "Diego Jimenez", "diegojimenez@yahoo.com", "4404404444"));
-                repoCliente.save(new Cliente("1000001007", "Carmen Castro", "carmencastro@hotmail.com", "4504504545"));
-                repoCliente.save(new Cliente("1000001008", "Roberto Molina", "robertomolina@gmail.com", "4604604646"));
-                repoCliente.save(
-                                new Cliente("1000001009", "Patricia Vargas", "patriciavargas@yahoo.com", "4704704747"));
-                repoCliente.save(new Cliente("1000001010", "Jorge Hernandez", "jorgehernandez@hotmail.com",
-                                "4804804848"));
-                repoCliente.save(
-                                new Cliente("1000001011", "Natalia Alvarez", "nataliaalvarez@gmail.com", "4904904949"));
-                repoCliente.save(new Cliente("1000001012", "Gonzalo Romero", "gonzaloromero@yahoo.com", "5005005050"));
-                repoCliente.save(new Cliente("1000001013", "Rocio Flores", "rocioflores@hotmail.com", "5105105151"));
-                repoCliente.save(
-                                new Cliente("1000001014", "Fernando Medina", "fernandomedina@gmail.com", "5205205252"));
-                repoCliente.save(
-                                new Cliente("1000001015", "Lorena Guerrero", "lorenaguerrero@yahoo.com", "5305305353"));
-                repoCliente.save(new Cliente("1000001016", "Manuel Castro", "manuelcastro@hotmail.com", "5405405454"));
-                repoCliente.save(new Cliente("1000001017", "Esther Morales", "esthermorales@gmail.com", "5505505555"));
-                repoCliente.save(new Cliente("1000001018", "Rafael Ortega", "rafaelortega@yahoo.com", "5605605656"));
-                repoCliente.save(new Cliente("1000001019", "Adriana Pardo", "adrianapardo@hotmail.com", "5705705757"));
-                repoCliente.save(new Cliente("1000001020", "Gabriel Silva", "gabrielsilva@gmail.com", "5805805858"));
-                repoCliente.save(
-                                new Cliente("1000001021", "Valentina Rojas", "valentinarojas@yahoo.com", "5905905959"));
-                repoCliente.save(
-                                new Cliente("1000001022", "Hector Ramirez", "hectorramirez@hotmail.com", "6006006060"));
-                repoCliente.save(new Cliente("1000001023", "Carolina Lopez", "carolinalopez@gmail.com", "6106106161"));
-                repoCliente.save(new Cliente("1000001024", "Daniel Perez", "danielperez@yahoo.com", "6206206262"));
-                repoCliente.save(new Cliente("1000001025", "Camila Torres", "camilatorres@hotmail.com", "6306306363"));
-                repoCliente.save(new Cliente("1000001026", "Sebastian Medina", "sebastianmedina@gmail.com",
-                                "6406406464"));
-                repoCliente.save(new Cliente("1000001027", "Natalia Ortiz", "nataliaortiz@yahoo.com", "6506506565"));
-                repoCliente.save(new Cliente("1000001028", "Andres Gonzalez", "andresgonzalez@hotmail.com",
-                                "6606606666"));
+                repoRol.save(new Rol("Cliente")); 
+                repoRol.save(new Rol("Veterinario")); 
+                repoRol.save(new Rol("Admin"));
+                
+                Cliente clienteSave;
+                Veterinario veterinarioSave; 
+                UserEntity userEntity;
 
+
+                clienteSave = new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1001572832", "Laura Karara", "karara02@gmail.com", "3022678421");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000241", "Pipe Briñex", "brinez1907@gmail.com", "3142211457");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000123", "Laura Rodriguez", "rodriguezlaura@gmail.com", "3003003030");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000789", "Maria Gomez", "mariagomez@yahoo.com", "3203203232");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000456", "Juan Perez", "juanperez@hotmail.com", "3103103131");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000987", "Carlos Sanchez", "carlossanchez@outlook.com", "3303303333");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000654", "Ana Martinez", "anamartinez@gmail.com", "3403403434");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000321", "Pedro Lopez", "pedrolopez@hotmail.com", "3503503535");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000876", "Luisa Ramirez", "luisaramirez@yahoo.com", "3603603636");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000543", "Jorge Hernandez", "jorgehernandez@outlook.com","3703703737");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000234", "Sofia Castro", "sofiacastro@gmail.com", "3803803838");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000765", "Andres Diaz", "andresdiaz@hotmail.com", "3903903939");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000345", "Gabriela Torres", "gabrielatorres@yahoo.com", "4004004040");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000678", "Ricardo Pardo", "ricardopardo@outlook.com", "4104104141");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000456", "Camila Duque", "camiladuque@gmail.com", "4204204242");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000987", "Daniel Rojas", "danielrojas@hotmail.com", "4304304343");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000789", "Valentina Duarte", "valentinaduarte@yahoo.com","4404404444");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000654", "Diego Castro", "diegocastro@outlook.com", "4504504545");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000876", "Laura Perez", "lauraperez@gmail.com", "4604604646");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000000999", "Elena Sánchez", "elenasanchez@gmail.com", "3713713737");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001000", "Javier García", "javiergarcia@yahoo.com", "3803803838");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001001", "Andrea Fernandez", "afernandez@hotmail.com", "3903903939");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001002", "Santiago Diaz", "santiagodiaz@gmail.com", "4004004040");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001003", "Paula Ruiz", "paularuiz@yahoo.com", "4104104141");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001004", "Mario Torres", "mariotorres@hotmail.com", "4204204242");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001005", "Lucia Navarro", "lucianavarro@gmail.com", "4304304343");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001006", "Diego Jimenez", "diegojimenez@yahoo.com", "4404404444");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001007", "Carmen Castro", "carmencastro@hotmail.com", "4504504545");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001008", "Roberto Molina", "robertomolina@gmail.com", "4604604646");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001009", "Patricia Vargas", "patriciavargas@yahoo.com", "4704704747");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001010", "Jorge Hernandez", "jorgehernandez@hotmail.com","4804804848");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001011", "Natalia Alvarez", "nataliaalvarez@gmail.com", "4904904949");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001012", "Gonzalo Romero", "gonzaloromero@yahoo.com", "5005005050");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001013", "Rocio Flores", "rocioflores@hotmail.com", "5105105151");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001014", "Fernando Medina", "fernandomedina@gmail.com", "5205205252");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001015", "Lorena Guerrero", "lorenaguerrero@yahoo.com", "5305305353");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001016", "Manuel Castro", "manuelcastro@hotmail.com", "5405405454");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001017", "Esther Morales", "esthermorales@gmail.com", "5505505555");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001018", "Rafael Ortega", "rafaelortega@yahoo.com", "5605605656");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001019", "Adriana Pardo", "adrianapardo@hotmail.com", "5705705757");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001020", "Gabriel Silva", "gabrielsilva@gmail.com", "5805805858");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001021", "Valentina Rojas", "valentinarojas@yahoo.com", "5905905959");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001022", "Hector Ramirez", "hectorramirez@hotmail.com", "6006006060");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001023", "Carolina Lopez", "carolinalopez@gmail.com", "6106106161");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001024", "Daniel Perez", "danielperez@yahoo.com", "6206206262");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001025", "Camila Torres", "camilatorres@hotmail.com", "6306306363");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001026", "Sebastian Medina", "sebastianmedina@gmail.com","6406406464");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001027", "Natalia Ortiz", "nataliaortiz@yahoo.com", "6506506565");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave); 
+                
+                clienteSave = new Cliente("1000001028", "Andres Gonzalez", "andresgonzalez@hotmail.com","6606606666");
+                userEntity = saveUserCliente(clienteSave); 
+                clienteSave.setUser(userEntity);
+                repoCliente.save(clienteSave);
+
+                
                 // MASCOTAS
                 repoMascota.save(new Mascota("Iris", "Husky", 3, 20000,
                                 "https://t2.uc.ltmcdn.com/es/posts/4/6/5/como_saber_si_mi_husky_es_puro_50564_600.jpg"));
@@ -348,17 +555,31 @@ public class DatabaseInit implements ApplicationRunner {
                 repoMascota.save(new Mascota("Shadow", "Dachshund", 4, 2500,
                                 "https://www.elmueble.com/medio/2023/03/02/perro-de-raza-beagle_67c65dda_230302133955_1200x630.jpg"));
 
-                repoVeterinario.save(new Veterinario("12345678", "Sebastián Angarita", "password",
-                                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-                repoVeterinario.save(new Veterinario("87654321", "Juan Zuluaga", "password",
-                                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-                repoVeterinario.save(new Veterinario("11223344", "Carlos Parra", "password",
-                                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-                repoVeterinario.save(new Veterinario("55667788", "Jose Hurtado", "password",
-                                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
-                repoVeterinario.save(new Veterinario("18273645", "Andrea Rueda", "password",
-                                "https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg"));
+               veterinarioSave = new Veterinario("12345678", "Sebastián Angarita", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
 
+               veterinarioSave = new Veterinario("87654321", "Juan Zuluaga", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
+
+               veterinarioSave = new Veterinario("11223344", "Carlos Parra", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
+
+               veterinarioSave = new Veterinario("55667788", "Jose Hurtado", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
+
+               veterinarioSave = new Veterinario("18273645", "Andrea Rueda", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
+               
                 repoEspecialidad.save(new Especialidad("General"));
                 repoEspecialidad.save(new Especialidad("Cardiologia"));
                 repoEspecialidad.save(new Especialidad("Dermatologia"));
@@ -1105,6 +1326,27 @@ public class DatabaseInit implements ApplicationRunner {
                         }
                 }
         }
+
+        private UserEntity saveUserCliente(Cliente cliente){
+                UserEntity userEntity = new UserEntity();
+                userEntity.setUsername(cliente.getCedula());
+                userEntity.setPassword(passwordEncoder.encode("123"));
+                Rol roles = repoRol.findByNombre("Cliente").get();
+                userEntity.setRoles(List.of(roles));
+
+                return repoUserEntity.save(userEntity); 
+        }
+
+        private UserEntity saveUserVeterinario(Veterinario veterinario){
+                UserEntity userEntity = new UserEntity();
+                userEntity.setUsername(veterinario.getCedula());
+                userEntity.setPassword(passwordEncoder.encode(veterinario.getContrasenia()));
+                Rol roles = repoRol.findByNombre("Veterinario").get();
+                userEntity.setRoles(List.of(roles));
+
+                return repoUserEntity.save(userEntity); 
+        }
+
 
 
 }
