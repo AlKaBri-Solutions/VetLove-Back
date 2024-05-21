@@ -7,5 +7,5 @@ public class VeterinarioDTO {
     Long idVeterinario;
     String cedula;
     String nombre;
-    String fotoUrl; 
+    String fotoUrl;
 }
