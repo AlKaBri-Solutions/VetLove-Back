@@ -3,11 +3,11 @@ package com.vetlove.demo.Controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -150,11 +150,18 @@ public class ClienteController {
     // http://localhost:8090/cliente/login?12345678
     @PostMapping("/login")
     public ResponseEntity loginCliente(@RequestBody Cliente cliente) {
+
+        System.out.println(cliente.getCedula());
+
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(cliente.getCedula(), "123")
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+
 
         String token = jwtGenerator.generateToken(authentication);
 
@@ -164,7 +171,9 @@ public class ClienteController {
 
     @GetMapping("/details")
     public ResponseEntity<Cliente> buscarCliente() {
-        
+
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+
         Cliente cliente = clienteServicio.SearchByCedula(
             SecurityContextHolder.getContext().getAuthentication().getName()
         );

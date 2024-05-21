@@ -94,19 +94,9 @@ public class DatabaseInit implements ApplicationRunner {
 
         @Override
         public void run(ApplicationArguments args) throws Exception {
-
-                new Rol(null);
-                Rol rol1 = Rol.builder().name("CLIENTE").build(); 
-
-                new Rol(null);
-                Rol rol2 = Rol.builder().name("VETERINARIO").build();
-
-                new Rol(null);
-                Rol rol3 = Rol.builder().name("ADMIN").build();
-
-                repoRol.save(rol1); 
-                repoRol.save(rol2); 
-                repoRol.save(rol3);
+                repoRol.save(new Rol("CLIENTE")); 
+                repoRol.save(new Rol("VETERINARIO")); 
+                repoRol.save(new Rol("ADMIN"));
                 
                 
                 Veterinario veterinarioSave; 
@@ -596,10 +586,22 @@ public class DatabaseInit implements ApplicationRunner {
                 repoEspecialidad.save(new Especialidad("Gastroenterologia"));
                 repoEspecialidad.save(new Especialidad("Ortopedia"));
 
-                repoEstadoVet.save(new EstadoVet("Activo"));
-                repoEstadoVet.save(new EstadoVet("Inactivo"));
-                repoEstadoVet.save(new EstadoVet("Vacaciones"));
-                repoEstadoVet.save(new EstadoVet("Incapacitado"));
+                new EstadoVet(null);
+                EstadoVet estadoVet1 = EstadoVet.builder().nombre("Activo").build();
+
+                new EstadoVet(null);
+                EstadoVet estadoVet2 = EstadoVet.builder().nombre("Inactivo").build();
+
+                new EstadoVet(null);
+                EstadoVet estadoVet3 = EstadoVet.builder().nombre("Vacaciones").build();
+
+                new EstadoVet(null);
+                EstadoVet estadoVet4 = EstadoVet.builder().nombre("Incapacitado").build();
+
+                repoEstadoVet.save(estadoVet1);
+                repoEstadoVet.save(estadoVet2);
+                repoEstadoVet.save(estadoVet3);
+                repoEstadoVet.save(estadoVet4);
 
                 Veterinario asociarVet = repoVeterinario.findById(1L).get();
                 asociarVet.setEspecialidad(repoEspecialidad.findById(1L).get());
