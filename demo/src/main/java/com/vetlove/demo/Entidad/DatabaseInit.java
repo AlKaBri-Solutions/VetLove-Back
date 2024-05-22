@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -17,7 +16,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-
 
 import com.vetlove.demo.Repositorio.AdministradorRepositorio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
@@ -761,7 +759,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Cargar medicamentos desde un excel
                 try (BufferedReader br = new BufferedReader(new FileReader(
-                        "C:/Users/Fbrinez/Desktop/VetLove-Back/demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
+                        "C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/VetLove-Back/demo/src/main/resources/static//MEDICAMENTOS_VETERINARIA.csv"))) {
                         String line = br.readLine();
                         line = br.readLine();
                         int i = 0;

@@ -33,18 +33,18 @@ public class SecurityConfig {
                 .requestMatchers("/cliente/details").hasAuthority("CLIENTE")
                 .requestMatchers("/veterinario/login").permitAll()
                 .requestMatchers("/veterinario/find/**").hasAuthority("VETERINARIO")
-                .requestMatchers("/veterinario/details").hasAuthority("VETERINARIO")
+                .requestMatchers("/veterinario/details").permitAll()
                 .anyRequest().permitAll()
             )
             .exceptionHandling( exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint));
             
             http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        return http.build();   
+        return http.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(); 
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
