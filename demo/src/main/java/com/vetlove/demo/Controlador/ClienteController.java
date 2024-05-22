@@ -151,15 +151,17 @@ public class ClienteController {
     @PostMapping("/login")
     public ResponseEntity loginCliente(@RequestBody Cliente cliente) {
 
+        System.out.println("Cliente cedula:");
         System.out.println(cliente.getCedula());
+        Object cedula = cliente.getCedula();
 
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(cliente.getCedula(), "123")
+            new UsernamePasswordAuthenticationToken(cedula, "123")
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
+        System.out.println("Authentication name:");
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 
 
@@ -171,7 +173,7 @@ public class ClienteController {
 
     @GetMapping("/details")
     public ResponseEntity<Cliente> buscarCliente() {
-
+        System.out.println("Authentication name:");
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
 
         Cliente cliente = clienteServicio.SearchByCedula(

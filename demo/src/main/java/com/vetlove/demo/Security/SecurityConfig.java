@@ -39,12 +39,12 @@ public class SecurityConfig {
             .exceptionHandling( exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint));
             
             http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        return http.build();   
+        return http.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(); 
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
