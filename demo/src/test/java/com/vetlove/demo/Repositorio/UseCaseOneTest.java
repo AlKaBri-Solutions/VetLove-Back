@@ -1,4 +1,4 @@
-package com.vetlove.demo.e2e;
+package com.vetlove.demo.Repositorio;
 
 import java.time.Duration;
 import java.util.List;

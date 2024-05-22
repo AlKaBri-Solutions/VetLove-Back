@@ -15,6 +15,7 @@ import com.vetlove.demo.EntidadRequest.AddTratamientoRequest;
 import com.vetlove.demo.Interfaz.ITratamientoServicio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
 import com.vetlove.demo.Repositorio.EnfermedadRepositorio;
+import com.vetlove.demo.Repositorio.EstadoMasRepositorio;
 import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.MedicamentoRepositorio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
@@ -43,6 +44,9 @@ public class TratamientoServicio implements ITratamientoServicio {
 
     @Autowired
     private ClienteRepositorio repoCliente;
+
+    @Autowired
+    private EstadoMasRepositorio repoEstadoMas;
 
     @Override
     public Tratamiento searchById(Long id) {
@@ -119,6 +123,8 @@ public class TratamientoServicio implements ITratamientoServicio {
                     if (mascota.getNombre().equals(tratamiento.getNombre())) {
                         t.setMascota(mascota);
                         repoTratamiento.save(t);
+                        mascota.setEstado(repoEstadoMas.findByNombre("Ingresado"));
+                        repoMascota.save(mascota);
                         return 1;
                     }
                 }

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vetlove.demo.DTOs.VeterinarioDTO;
 import com.vetlove.demo.DTOs.VeterinarioMapper;
-import com.vetlove.demo.Entidad.Cliente;
 import com.vetlove.demo.Entidad.EstadoVet;
 import com.vetlove.demo.Entidad.UserEntity;
 import com.vetlove.demo.Entidad.Veterinario;
@@ -163,18 +162,19 @@ public class veterinarioController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<VeterinarioDTO> buscarCliente() {
+    public ResponseEntity<Veterinario> buscarCliente() {
         
         Veterinario veterinario = veterinarioServicio.SearchByCedula(
             SecurityContextHolder.getContext().getAuthentication().getName()
         );
 
-        VeterinarioDTO veterinarioDTO = VeterinarioMapper.INSTANCE.convert(veterinario);
+        // VeterinarioDTO veterinarioDTO = VeterinarioMapper.INSTANCE.convert(veterinario);
+        // System.out.println("Veterinario" + veterinarioDTO);
 
         if(veterinario == null){
-            return new ResponseEntity<VeterinarioDTO>(veterinarioDTO, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Veterinario>(veterinario, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<VeterinarioDTO>(veterinarioDTO, HttpStatus.OK);
+        return new ResponseEntity<Veterinario>(veterinario, HttpStatus.OK);
     }
     
 
