@@ -29,7 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/h2/**").permitAll()
                 .requestMatchers("/cliente/login").permitAll()
-                .requestMatchers("/cliente/find/**").hasAuthority("CLIENTE")
+                .requestMatchers("/cliente/find/**").hasAnyAuthority("CLIENTE", "VETERINARIO")
                 .requestMatchers("/cliente/details").hasAuthority("CLIENTE")
                 .requestMatchers("/veterinario/login").permitAll()
                 .requestMatchers("/veterinario/find/**").hasAuthority("VETERINARIO")

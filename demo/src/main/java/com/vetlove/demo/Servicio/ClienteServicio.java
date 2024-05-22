@@ -13,6 +13,9 @@ import com.vetlove.demo.Interfaz.IClienteServicio;
 import com.vetlove.demo.Repositorio.ClienteRepositorio;
 import com.vetlove.demo.Repositorio.MascotaRepositorio;
 import com.vetlove.demo.Repositorio.TratamientoRepositorio;
+import com.vetlove.demo.Repositorio.UsersRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteServicio implements IClienteServicio{
@@ -25,6 +28,9 @@ public class ClienteServicio implements IClienteServicio{
 
     @Autowired
     TratamientoRepositorio repoTratamiento;
+
+    @Autowired
+    UsersRepository repoUsers;
 
     @Override
     public Cliente SearchById(Long id) {
@@ -73,8 +79,10 @@ public class ClienteServicio implements IClienteServicio{
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Cliente cliente = repoCliente.findById(id).get();
+        repoUsers.deleteUserRoleById(cliente.getId());
         for (Mascota mascota : cliente.getMascotas()) {
             for (Tratamiento t : repoTratamiento.findByMascota(mascota)) {
                 repoTratamiento.deleteById(t.getIdTratamiento());

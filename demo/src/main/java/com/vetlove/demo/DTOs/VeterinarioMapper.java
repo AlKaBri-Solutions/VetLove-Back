@@ -9,5 +9,5 @@ import com.vetlove.demo.Entidad.Veterinario;
 public interface VeterinarioMapper {
     VeterinarioMapper INSTANCE = Mappers.getMapper(VeterinarioMapper.class);
 
-    VeterinarioDTO convert(Veterinario veterinario); 
+    VeterinarioDTO convert(Veterinario veterinario);
 }

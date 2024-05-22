@@ -29,6 +29,8 @@ import com.vetlove.demo.Repositorio.UsersRepository;
 import com.vetlove.demo.Security.CustomUserDetailService;
 import com.vetlove.demo.Security.JWTGenerator;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 @RequestMapping("/cliente")
 @CrossOrigin(origins = "http://localhost:4200") /////////////////////////
@@ -132,14 +134,16 @@ public class ClienteController {
         Veterinario veterinario = clienteServicio.SearchById(Long.parseLong(params.getId())).getVeterinario();
         Cliente cliente = params.getCliente();
         cliente.setVeterinario(veterinario);
+        cliente.setUser(userRepository.findById(cliente.getId()).get());
         Cliente client = clienteServicio.save(cliente);
-        System.out.println(client);
+        // System.out.println(client);
 
         return new ResponseEntity<>("SAVED", HttpStatus.NO_CONTENT);
     }
 
     // Métodos DELETE
     // http://localhost:8090/cliente/delete?id=1
+    @Transactional
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteCliente(@RequestParam Long id) {
         clienteServicio.deleteById(id);
