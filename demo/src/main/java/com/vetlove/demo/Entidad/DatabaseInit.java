@@ -99,7 +99,8 @@ public class DatabaseInit implements ApplicationRunner {
                 repoRol.save(new Rol("ADMIN"));
                 
                 
-                Veterinario veterinarioSave; 
+                Veterinario veterinarioSave;
+                Administrador adminSave;  
                 UserEntity userEntity;
 
                 Cliente clienteSave = new Cliente("1125248041", "Alejandro Barragán", "alejo190404@gmail.com", "3017202327");
@@ -759,7 +760,7 @@ public class DatabaseInit implements ApplicationRunner {
 
                 // Cargar medicamentos desde un excel
                 try (BufferedReader br = new BufferedReader(new FileReader(
-                        "C:/Users/alejo/Desktop/Universidad 6to semestre/Desarrollo Web/VetLove-Back/demo/src/main/resources/static//MEDICAMENTOS_VETERINARIA.csv"))) {
+                        "C:/Users/Fbrinez/Desktop/VetLove-Back/demo/src/main/resources/static/MEDICAMENTOS_VETERINARIA.csv"))) {
                         String line = br.readLine();
                         line = br.readLine();
                         int i = 0;
@@ -863,10 +864,16 @@ public class DatabaseInit implements ApplicationRunner {
                         }
                         repoTratamiento.save(tratamiento);
                 }
+
+                veterinarioSave = new Veterinario("18273645", "Andrea Rueda", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
+               userEntity = saveUserVeterinario(veterinarioSave);
+               veterinarioSave.setUserEntity(userEntity);
+               repoVeterinario.save(veterinarioSave); 
                 
-                Administrador admin = Administrador.builder().cedula("1000586123").contrasenia("super-secret-password").build(); 
-                //Administrador admin = new Administrador("1000586123", "super-secret-password");
-                repoAdministrador.save(admin);
+                adminSave = Administrador.builder().cedula("1000586123").contrasenia("super-secret-password").build(); 
+                userEntity = saveUserAdmin(adminSave);
+                adminSave.setUserEntity(userEntity);
+                repoAdministrador.save(adminSave);
 
                 repoHora.save(new Hora("00:00"));
                 repoHora.save(new Hora("00:15"));
@@ -1369,6 +1376,25 @@ public class DatabaseInit implements ApplicationRunner {
                 // Inicializar un conjunto mutable de roles y agregar el rol obtenido
                 Set<Rol> roles = new HashSet<>();
                 roles.add(vetRole);
+                
+                // Establecer el conjunto de roles en el usuario
+                userEntity.setRoles(roles);
+
+                // Guardar el usuario en el repositorio
+                return repoUserEntity.save(userEntity); 
+        }
+
+        private UserEntity saveUserAdmin(Administrador admin){
+                UserEntity userEntity = new UserEntity();
+                userEntity.setUsername(admin.getCedula());
+                userEntity.setPassword(passwordEncoder.encode(admin.getContrasenia()));
+                
+                // Obtener el rol "CLIENTE" del repositorio de roles
+                Rol adminRole = repoRol.findByName("ADMIN").orElseThrow(() -> new RuntimeException("Rol 'ADMIN' no encontrado"));
+
+                // Inicializar un conjunto mutable de roles y agregar el rol obtenido
+                Set<Rol> roles = new HashSet<>();
+                roles.add(adminRole);
                 
                 // Establecer el conjunto de roles en el usuario
                 userEntity.setRoles(roles);

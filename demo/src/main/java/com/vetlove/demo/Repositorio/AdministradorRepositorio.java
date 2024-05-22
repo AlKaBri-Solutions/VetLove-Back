@@ -7,5 +7,5 @@ import com.vetlove.demo.Entidad.Administrador;
 
 @Repository
 public interface AdministradorRepositorio extends JpaRepository<Administrador, Long>{
-    
+    Administrador findByCedula(String cedula);
 }

@@ -5,4 +5,5 @@ import com.vetlove.demo.Entidad.Administrador;
 public interface IAdministradorServicio {
     public Administrador getAdministrador();
     public void updateAdministrador(Administrador admin);
+    public Administrador SearchByCedula(String cedula);
 }
