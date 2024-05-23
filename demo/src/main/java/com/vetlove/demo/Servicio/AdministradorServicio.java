@@ -25,5 +25,10 @@ public class AdministradorServicio implements IAdministradorServicio{
         administrador.setContrasenia(admin.getContrasenia());
         repoAdminsitrador.save(administrador);
     }
+
+   @Override
+   public Administrador SearchByCedula(String cedula){
+    return repoAdminsitrador.findByCedula(cedula);
+   }
     
 }
