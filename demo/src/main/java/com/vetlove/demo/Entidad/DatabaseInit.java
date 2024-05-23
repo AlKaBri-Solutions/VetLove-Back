@@ -863,12 +863,7 @@ public class DatabaseInit implements ApplicationRunner {
                                 repoMascota.save(mascota);
                         }
                         repoTratamiento.save(tratamiento);
-                }
-
-                veterinarioSave = new Veterinario("18273645", "Andrea Rueda", "password","https://images.ctfassets.net/pdf29us7flmy/69sCM6f2F5THBeBnNewynl/8ed3116aaf346a441d214b9f92748e21/-IND-001-036-_Types_of_Veterinary_Careers_Final.png?w=720&q=100&fm=jpg");
-               userEntity = saveUserVeterinario(veterinarioSave);
-               veterinarioSave.setUserEntity(userEntity);
-               repoVeterinario.save(veterinarioSave); 
+                } 
                 
                 adminSave = Administrador.builder().cedula("1000586123").contrasenia("super-secret-password").build(); 
                 userEntity = saveUserAdmin(adminSave);
